@@ -2,7 +2,16 @@
 
 ## Objectif global
 
-Construire progressivement une architecture de décision pour réduire l’empreinte carbone d’une infrastructure de paiement tout en respectant coût, performance, sécurité, criticité et résilience.
+Construire progressivement une architecture de décision pour réduire l’empreinte carbone d’une infrastructure de paiement tout en respectant coût, performance, sécurité, criticité et résilience, avec une trajectoire de déploiement **OpenShift Local / CRC -> Azure**.
+
+## Stratégie de déploiement transverse
+
+- **OpenShift Local / CRC** : cible prioritaire des labs et validations locales.
+- **Azure AKS** : cible cloud Kubernetes de référence.
+- **Azure Red Hat OpenShift (ARO)** : option entreprise lorsque le besoin impose OpenShift managé sur Azure.
+- Même logique Carbon/AI/Decision entre local et cloud.
+- Différences de plateforme gérées par manifests, Helm/Kustomize, overlays et IaC.
+- Les ressources Azure de lab doivent être arrêtées ou détruites après validation lorsque cela est possible.
 
 ## Itérations
 
@@ -14,6 +23,8 @@ Statut : **TERMINÉE**
 - distinguer mesures, calculs, hypothèses et prédictions ;
 - définir le rôle de l’AI et du Decision Engine ;
 - définir les NFR et critères de décision ;
+- définir OpenShift Local / CRC comme cible prioritaire ;
+- définir Azure AKS comme cible cloud et ARO comme option ;
 - créer la roadmap.
 
 ### Itération 1 — Modèle de données Carbon & Infra
@@ -89,21 +100,31 @@ Statut : **TERMINÉE**
 - événements de décision ;
 - audit et corrélation.
 
-### Itération 11 — OpenShift / Cloud / GreenOps
-- intégration avec workloads ;
-- scheduling ;
-- scaling ;
-- arrêt non-prod ;
-- politiques d’exploitation.
+### Itération 11 — Déploiement OpenShift Local / CRC
+- déploiement Carbon Engine, API, AI/ML et Decision Engine ;
+- Services / Routes ;
+- ConfigMaps / Secrets ;
+- requests/limits, quotas et policies ;
+- observabilité locale ;
+- GitOps ;
+- validation E2E avec données synthétiques et preuves.
 
-### Itération 12 — GitOps / ITSM
+### Itération 12 — Azure / GreenOps cloud
+- portage vers AKS ;
+- ARO documenté comme alternative OpenShift managée ;
+- Azure Monitor / Log Analytics ;
+- Cost Management et sources de métriques utiles ;
+- IaC et destruction contrôlée des ressources de lab ;
+- comparaison de parité fonctionnelle et de coûts Local/CRC vs Azure.
+
+### Itération 13 — GitOps / ITSM
 - recommandation -> changement contrôlé ;
 - approbation humaine ;
-- GitOps ;
+- overlays local/Azure ;
 - rollback ;
 - preuves avant/après.
 
-### Itération 13 — Observabilité carbone & FinOps
+### Itération 14 — Observabilité carbone & FinOps
 - dashboards ;
 - indicateurs ;
 - SLI/SLO ;
@@ -111,16 +132,17 @@ Statut : **TERMINÉE**
 - coût ;
 - dérive.
 
-### Itération 14 — Gouvernance / sécurité / audit
+### Itération 15 — Gouvernance / sécurité / audit
 - traçabilité ;
 - qualité des données ;
 - séparation recommandation/exécution ;
 - contrôles et responsabilités.
 
-### Itération 15 — Soutenance Architecte Solution
+### Itération 16 — Soutenance Architecte Solution
 - HLD ;
 - ADR ;
 - matrice de scénarios ;
 - risques ;
 - trajectoire ;
+- comparaison OpenShift Local / AKS / ARO ;
 - démonstration anonymisée.
