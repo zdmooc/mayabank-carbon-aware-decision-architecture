@@ -33,6 +33,28 @@ L’objectif est de comparer des scénarios de modernisation et d’optimisation
 
 Principe : **l’AI recommande ; le Decision Engine vérifie les politiques ; l’humain garde le contrôle des changements sensibles.**
 
+## Stratégie de déploiement
+
+Deux cibles sont obligatoires dans la trajectoire du dépôt :
+
+### Cible A — OpenShift Local / CRC
+
+- cible prioritaire pour apprendre, développer et tester localement ;
+- déploiement du Carbon Engine, des API, des composants AI/ML, du Decision Engine et de l’observabilité ;
+- expérimentation des workloads conteneurisés, du right-sizing, des policies et du GitOps ;
+- usage de Services, Routes, ConfigMaps, Secrets, quotas, probes et NetworkPolicy ;
+- un lab n’est marqué `EXÉCUTÉ` qu’avec preuve reproductible.
+
+### Cible B — Azure
+
+- **AKS** comme cible Kubernetes Azure pour rejouer les mêmes scénarios dans le cloud ;
+- **ARO** comme option d’architecture entreprise lorsque le besoin impose OpenShift managé sur Azure ;
+- intégration progressive avec Azure Monitor / Log Analytics / Cost Management et les sources de données utiles aux scénarios carbone ;
+- séparation configuration / IaC / overlays sans fork de logique métier ;
+- destruction des ressources Azure de lab après validation lorsque cela est possible afin de limiter le coût et l’empreinte du lab.
+
+Ordre de travail retenu : **OpenShift Local / CRC -> validation -> Azure**.
+
 ## NFR initiaux
 
 - explicabilité des recommandations ;
@@ -43,7 +65,8 @@ Principe : **l’AI recommande ; le Decision Engine vérifie les politiques ; l�
 - auditabilité ;
 - réversibilité ;
 - performance ;
-- maîtrise des coûts ;
+- portabilité OpenShift Local / Azure ;
+- maîtrise des coûts cloud ;
 - absence de données client réelles.
 
 ## Architecture logique initiale
@@ -70,6 +93,11 @@ KEEP / RETIRE / REVIEW
         |
         v
 Human approval -> GitOps / ITSM / Platform
+        |
+        +-----------------------+
+        |                       |
+        v                       v
+OpenShift Local / CRC      Azure AKS / ARO
 ```
 
 ## Livrables de l’Itération 0
@@ -80,7 +108,8 @@ Human approval -> GitOps / ITSM / Platform
 - séparation Carbon Engine / AI / Decision Engine / humain ;
 - principes d’anonymisation ;
 - NFR initiaux ;
-- architecture logique initiale.
+- architecture logique initiale ;
+- stratégie de déploiement OpenShift Local + Azure.
 
 ## Critères de sortie
 
@@ -89,6 +118,9 @@ Human approval -> GitOps / ITSM / Platform
 - [x] cas d’usage infrastructure de paiement clairement défini ;
 - [x] rôle de l’AI séparé du moteur de décision ;
 - [x] moteur de décision vendor-neutral ;
+- [x] OpenShift Local / CRC défini comme cible prioritaire de lab ;
+- [x] Azure AKS défini comme cible cloud et ARO comme option entreprise ;
+- [x] principe de portabilité sans fork applicatif défini ;
 - [x] roadmap incrémentale créée ;
 - [x] aucun gain carbone présenté comme réel sans mesure et preuve.
 
