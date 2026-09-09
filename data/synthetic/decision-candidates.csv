@@ -1,0 +1,11 @@
+candidate_id,asset_id,source_recommendation,criticality,data_quality,ml_confidence,security_clear,budget_approved,rto_rpo_compatible,blocking_dependency,expected_decision
+CAND-001,ASSET-PAY-001-PROD,MIGRATE,CRITICAL,GOOD,0.88,true,true,true,false,MIGRATE
+CAND-002,ASSET-PAY-001-UAT,RIGHTSIZE_DOWN,MEDIUM,GOOD,0.91,true,true,true,false,RIGHTSIZE
+CAND-003,ASSET-PAY-002-PROD,CONSOLIDATE,HIGH,GOOD,0.82,true,true,true,false,CONSOLIDATE
+CAND-004,ASSET-PAY-003-TEST,RETIRE,LOW,GOOD,0.75,true,false,true,false,RETIRE
+CAND-005,ASSET-PAY-004-DEV,KEEP,LOW,GOOD,0.66,true,false,true,false,KEEP
+CAND-006,ASSET-PAY-005-PROD,MIGRATE,CRITICAL,GOOD,0.93,false,true,true,false,REVIEW
+CAND-007,ASSET-PAY-006-PROD,RIGHTSIZE_DOWN,HIGH,WARN,0.90,true,true,true,false,REVIEW
+CAND-008,ASSET-PAY-007-PROD,MIGRATE,HIGH,GOOD,0.92,true,true,true,true,REVIEW
+CAND-009,ASSET-PAY-008-PROD,MIGRATE,HIGH,GOOD,0.91,true,false,true,false,REVIEW
+CAND-010,ASSET-PAY-009-PROD,MIGRATE,HIGH,GOOD,0.90,true,true,false,false,REVIEW
