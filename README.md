@@ -6,18 +6,22 @@ Référentiel d’architecture et laboratoire pédagogique pour concevoir une pl
 
 **Architecte Solution — Green IT / Carbon-Aware Architecture / AI / GreenOps — Payment Infrastructure**
 
-Le dépôt montre comment relier :
+Le dépôt relie :
 
 ```text
-Infrastructure de paiement
-  -> inventaire / CMDB / observabilité
-  -> CPU / RAM / JVM / stockage / DB / énergie / coût
+Infrastructure / CMDB / observabilité
   -> Carbon Engine
-  -> AI / ML pour prévoir et optimiser
-  -> Decision Engine pour appliquer les politiques
-  -> MIGRATE / RIGHTSIZE / CONSOLIDATE / KEEP / RETIRE / REVIEW
-  -> OpenShift / Azure / ITSM / GitOps
+  -> Right-Sizing / Modernisation / Storage
+  -> AI / ML
+  -> Decision Engine
+  -> Optimisation multi-critères / Pareto
+  -> API / Event-Driven
+  -> OpenShift / Azure / GitOps / ITSM
 ```
+
+## Principe architectural
+
+**L’AI/ML prévoit et priorise ; le Decision Engine applique les contraintes dures ; l’optimisation multi-critères compare les options éligibles ; l’humain approuve les changements sensibles.**
 
 ## Cas d’usage fil rouge
 
@@ -28,74 +32,39 @@ Plateforme fictive **MayaBank Payment Platform** :
 - rationalisation VM/JVM ;
 - optimisation stockage et sauvegarde ;
 - consolidation bases de données ;
-- arrêt ou réduction des environnements non critiques ;
-- comparaison de scénarios selon carbone, coût, performance, sécurité et résilience.
+- réduction des environnements non critiques ;
+- comparaison de scénarios carbone/coût/performance/risque/disponibilité.
 
-## Principe architectural
+## Modules livrés
 
-```text
-Metrics / CMDB / Cost / Carbon Factors
-            ↓
-       Carbon Engine
-            ↓
-         AI / ML
- forecast / anomaly / ranking
-            ↓
-      Decision Engine
- policy / SLA / RTO-RPO / security
- budget / criticality / data quality
-            ↓
-MIGRATE / RIGHTSIZE / CONSOLIDATE
-KEEP / RETIRE / REVIEW
-            ↓
- Human approval / ITSM / GitOps
-```
-
-**L’AI/ML propose ou priorise ; le Decision Engine applique les politiques ; l’humain approuve les changements sensibles.**
-
-## Carbon Engine v1
+### I2 — Carbon Engine
 
 ```bash
 python carbon-engine/engine.py --scenario optimized
 python -m unittest tests/test_carbon_engine.py
 ```
 
-Les résultats sont entièrement synthétiques et servent uniquement à tester la méthode.
-
-## Observabilité, Right-Sizing, Modernisation et Storage
+### I3–I6 — Observabilité / Right-Sizing / Modernisation / Storage
 
 ```bash
 python observability/normalize_metrics.py
-python -m unittest tests/test_observability_pipeline.py
 python rightsizing/recommend.py
-python -m unittest tests/test_rightsizing.py
 python modernization/assess.py
-python -m unittest tests/test_modernization.py
 python storage/assess.py
-python -m unittest tests/test_storage_assessment.py
 ```
 
-## AI / ML GreenOps v1
-
-L’Itération 7 ajoute :
+### I7 — AI / ML GreenOps
 
 - forecast CPU/power ;
-- estimation de consommation ;
-- détection d’anomalies ;
-- ranking des candidats ;
+- consommation ;
+- anomalies ;
+- ranking ;
 - `confidenceScore` ;
-- fallback si historique insuffisant.
+- fallback.
 
-```bash
-python ai-ml/greenops_model.py
-python -m unittest tests/test_greenops_ml.py
-```
+### I8 — Decision Engine
 
-L’AI/ML ne déclenche aucun changement.
-
-## Decision Engine v1
-
-L’Itération 8 ajoute un moteur de décision vendor-neutral qui vérifie :
+Le moteur vérifie :
 
 - qualité des données ;
 - confiance ML ;
@@ -105,24 +74,34 @@ L’Itération 8 ajoute un moteur de décision vendor-neutral qui vérifie :
 - budget ;
 - dépendances bloquantes.
 
-Décisions :
+Décisions : `MIGRATE / RIGHTSIZE / CONSOLIDATE / KEEP / RETIRE / REVIEW`.
 
-- `MIGRATE` ;
-- `RIGHTSIZE` ;
-- `CONSOLIDATE` ;
-- `KEEP` ;
-- `RETIRE` ;
-- `REVIEW`.
+`autoApplyAllowed=false` pour toutes les décisions.
+
+### I9 — Optimisation multi-critères
+
+L’Itération 9 ajoute :
+
+- carbone ;
+- coût ;
+- performance ;
+- disponibilité ;
+- risque ;
+- contraintes dures séparées des préférences ;
+- front de Pareto ;
+- profil de poids versionné ;
+- recommandation pondérée ;
+- conservation des alternatives non dominées.
 
 ```bash
-python decision-engine/engine.py
-python decision-engine/engine.py --json
-python -m unittest tests/test_decision_engine.py
+python optimization/pareto.py
+python optimization/pareto.py --json
+python -m unittest tests/test_multicriteria.py
 ```
 
-Toutes les décisions exposent une version de politique et des reason codes. `autoApplyAllowed=false` : aucune décision n’est exécutée automatiquement.
+Le scénario synthétique recommande `OPT-MIGRATE` selon le profil de lab, tout en conservant `KEEP`, `RIGHTSIZE` et `SERVERLESS` comme alternatives Pareto. L’option agressive est détectée comme dominée et une option non éligible est exclue avant scoring.
 
-IBM ODM est documenté comme **option d’implémentation possible**, sans dépendance obligatoire dans ce dépôt.
+Principe : **un bon score carbone ne peut jamais contourner une contrainte de sécurité, SLA, RTO/RPO ou policy.**
 
 ## Stratégie de déploiement
 
@@ -137,12 +116,13 @@ IBM ODM est documenté comme **option d’implémentation possible**, sans dépe
 - distinguer mesure, calcul, hypothèse et prédiction ;
 - ne jamais présenter un gain estimé comme une mesure réelle ;
 - chaque recommandation doit expliquer ses critères ;
+- aucun hard gate ne peut être compensé par une pondération ;
 - aucune recommandation n’est auto-appliquée ;
 - éviter tout fork fonctionnel entre OpenShift Local et Azure.
 
 ## État
 
-- **I0 à I8 : TERMINÉES**
-- **Prochaine : Itération 9 — Optimisation multi-critères**
+- **I0 à I9 : TERMINÉES**
+- **Prochaine : Itération 10 — API & Event-Driven**
 
-Voir `docs/iteration-08/README.md`, `docs/00-roadmap.md` et `docs/BACKLOG.md`.
+Voir `docs/iteration-09/README.md`, `docs/00-roadmap.md` et `docs/BACKLOG.md`.
