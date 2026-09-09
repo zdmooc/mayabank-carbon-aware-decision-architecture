@@ -1,0 +1,18 @@
+{
+  "profileVersion": "greenops-multicriteria-v1",
+  "weights": {
+    "carbon_reduction_pct": 0.30,
+    "cost_reduction_pct": 0.20,
+    "performance_score": 0.15,
+    "availability_score": 0.15,
+    "risk_score": 0.20
+  },
+  "directions": {
+    "carbon_reduction_pct": "maximize",
+    "cost_reduction_pct": "maximize",
+    "performance_score": "maximize",
+    "availability_score": "maximize",
+    "risk_score": "minimize"
+  },
+  "disclaimer": "Synthetic educational preference profile. Not an enterprise policy."
+}
