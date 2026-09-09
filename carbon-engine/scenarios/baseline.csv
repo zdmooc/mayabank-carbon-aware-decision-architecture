@@ -1,0 +1,6 @@
+asset_id,active_hours_per_year,power_multiplier,cost_multiplier,region_override,change_type,assumption
+ASSET-PAY-001-PROD,8760,1.00,1.00,,BASELINE,No change
+ASSET-PAY-001-UAT,8760,1.00,1.00,,BASELINE,No change
+ASSET-PAY-002-PROD,8760,1.00,1.00,,BASELINE,No change
+ASSET-PAY-003-TEST,8760,1.00,1.00,,BASELINE,No change
+ASSET-PAY-004-DEV,8760,1.00,1.00,,BASELINE,No change
