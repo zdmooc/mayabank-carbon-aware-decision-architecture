@@ -39,19 +39,20 @@ Construire progressivement une architecture de décision pour réduire l’empre
 - tests de non-régression ;
 - comparaison documentée.
 
-### Itération 3 — Observabilité & CMDB
+### Itération 3 — Observabilité & CMDB — TERMINÉE
 - ingestion métriques CPU/RAM/JVM ;
 - inventaire ;
 - normalisation ;
 - corrélation application-infrastructure ;
 - qualité et fraîcheur des données.
 
-### Itération 4 — Right-Sizing
+### Itération 4 — Right-Sizing — TERMINÉE
 - sous-utilisation ;
-- requests/limits ;
+- cibles CPU/RAM ;
 - capacité N+1 ;
-- scénarios de réduction CPU/RAM ;
-- garde-fous de performance.
+- plafonds de réduction ;
+- garde-fous de performance et qualité ;
+- recommandations explicables et non auto-appliquées.
 
 ### Itération 5 — Modernisation Middleware -> OpenShift
 - scénario VM/WebSphere-like vers conteneurs/OpenShift ;
