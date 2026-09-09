@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://mayabank.example/schemas/carbon-infra-record.schema.json",
+  "title": "MayaBank Carbon Infrastructure Record",
+  "type": "object",
+  "required": [
+    "applicationId",
+    "assetId",
+    "environment",
+    "platformType",
+    "hostingTarget",
+    "vcpuAllocated",
+    "ramGbAllocated",
+    "storageGb",
+    "criticality",
+    "region"
+  ],
+  "properties": {
+    "applicationId": {"type": "string", "pattern": "^APP-"},
+    "applicationName": {"type": "string"},
+    "assetId": {"type": "string", "pattern": "^ASSET-"},
+    "environment": {"type": "string", "enum": ["DEV", "TEST", "UAT", "PROD"]},
+    "platformType": {"type": "string", "enum": ["PHYSICAL", "VM", "JVM", "POD", "DB"]},
+    "hostingTarget": {"type": "string", "enum": ["ON_PREM", "OPENSHIFT_LOCAL", "AKS", "ARO"]},
+    "vcpuAllocated": {"type": "number", "minimum": 0},
+    "ramGbAllocated": {"type": "number", "minimum": 0},
+    "storageGb": {"type": "number", "minimum": 0},
+    "criticality": {"type": "string", "enum": ["LOW", "MEDIUM", "HIGH", "CRITICAL"]},
+    "rtoMinutes": {"type": "integer", "minimum": 0},
+    "rpoMinutes": {"type": "integer", "minimum": 0},
+    "region": {"type": "string"},
+    "shutdownAllowed": {"type": "boolean"}
+  },
+  "additionalProperties": false
+}
