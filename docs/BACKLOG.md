@@ -77,13 +77,15 @@ Construire un POC démontrable de décision de décarbonation d’une infrastruc
 
 **DoD atteint** : inventaire DB/stockage synthétique, politiques HOT/WARM/COLD, rétention/TTL, backups, candidats de consolidation DB, moteur `storage/assess.py`, garde-fous criticité/RTO et tests `python -m unittest tests/test_storage_assessment.py`. Les coefficients coût/carbone sont fictifs et aucune recommandation n’est auto-appliquée.
 
-### I7 — AI / ML — P0
-- [ ] Prévision de charge
-- [ ] Détection d’anomalies
-- [ ] Prévision de consommation
-- [ ] Ranking des candidats à optimisation
-- [ ] Confidence score
-- [ ] Fallback sans modèle
+### I7 — AI / ML — DONE
+- [x] Prévision de charge
+- [x] Détection d’anomalies
+- [x] Prévision de consommation
+- [x] Ranking des candidats à optimisation
+- [x] Confidence score
+- [x] Fallback sans modèle
+
+**DoD atteint** : historique synthétique, moteur `ai-ml/greenops_model.py`, prévisions CPU/puissance, estimation de consommation, détection d’anomalie, ranking, confiance, fallback si historique insuffisant et tests `python -m unittest tests/test_greenops_ml.py`. L’AI/ML ne déclenche aucun changement automatique.
 
 ### I8 — Decision Engine — P0
 - [ ] Politiques Green IT
