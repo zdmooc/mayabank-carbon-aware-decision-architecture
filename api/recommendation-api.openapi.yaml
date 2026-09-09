@@ -1,0 +1,111 @@
+openapi: 3.1.0
+info:
+  title: MayaBank GreenOps Recommendation API
+  version: 1.0.0
+  description: API fictive et pédagogique pour évaluer et approuver des recommandations GreenOps.
+paths:
+  /v1/recommendations/evaluate:
+    post:
+      operationId: evaluateRecommendation
+      parameters:
+        - $ref: '#/components/parameters/CorrelationId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RecommendationCandidate'
+      responses:
+        '200':
+          description: Recommandation gouvernée
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RecommendationResult'
+        '400':
+          description: Requête invalide
+  /v1/recommendations/{recommendationId}/approve:
+    post:
+      operationId: approveRecommendation
+      parameters:
+        - name: recommendationId
+          in: path
+          required: true
+          schema: {type: string}
+        - $ref: '#/components/parameters/CorrelationId'
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [approvedBy]
+              properties:
+                approvedBy: {type: string}
+                comment: {type: string}
+      responses:
+        '200':
+          description: Approbation humaine enregistrée. Aucun changement n'est appliqué automatiquement.
+  /health/live:
+    get:
+      responses:
+        '200': {description: Live}
+  /health/ready:
+    get:
+      responses:
+        '200': {description: Ready}
+components:
+  parameters:
+    CorrelationId:
+      name: X-Correlation-Id
+      in: header
+      required: false
+      schema: {type: string}
+  schemas:
+    RecommendationCandidate:
+      type: object
+      required:
+        - candidate_id
+        - asset_id
+        - source_recommendation
+        - criticality
+        - data_quality
+        - ml_confidence
+        - security_clear
+        - budget_approved
+        - rto_rpo_compatible
+        - blocking_dependency
+      properties:
+        candidate_id: {type: string}
+        asset_id: {type: string}
+        source_recommendation:
+          type: string
+          enum: [MIGRATE, RIGHTSIZE_DOWN, RIGHTSIZE_UP, CONSOLIDATE, KEEP, RETIRE, REVIEW, REVIEW_DATA]
+        criticality:
+          type: string
+          enum: [LOW, MEDIUM, HIGH, CRITICAL]
+        data_quality: {type: string}
+        ml_confidence: {type: number, minimum: 0, maximum: 1}
+        security_clear: {type: boolean}
+        budget_approved: {type: boolean}
+        rto_rpo_compatible: {type: boolean}
+        blocking_dependency: {type: boolean}
+    RecommendationResult:
+      type: object
+      required: [recommendationId, decision, reasonCodes, policyVersion, humanApprovalRequired, autoApplyAllowed, correlationId]
+      properties:
+        recommendationId: {type: string}
+        candidateId: {type: string}
+        assetId: {type: string}
+        decision:
+          type: string
+          enum: [MIGRATE, RIGHTSIZE, CONSOLIDATE, KEEP, RETIRE, REVIEW]
+        reasonCodes:
+          type: array
+          items: {type: string}
+        policyVersion: {type: string}
+        humanApprovalRequired: {type: boolean}
+        autoApplyAllowed:
+          type: boolean
+          const: false
+        correlationId: {type: string}
