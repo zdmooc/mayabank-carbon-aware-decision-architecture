@@ -18,15 +18,15 @@ Construire un POC démontrable de décision de décarbonation d’une infrastruc
 - [x] Roadmap
 - [x] Cible OpenShift Local/CRC puis Azure AKS/ARO
 
-### I1 — Modèle de données Carbon & Infra — P0
-- [ ] Modéliser application / environnement / serveur / VM / JVM / pod / cluster
-- [ ] CPU / RAM / stockage / backup / DB
-- [ ] Énergie / facteur carbone / coût
-- [ ] Criticité / SLA / RTO / RPO
-- [ ] Provenance et fraîcheur des données
-- [ ] Jeu de données synthétique versionné
+### I1 — Modèle de données Carbon & Infra — DONE
+- [x] Modéliser application / environnement / serveur / VM / JVM / pod / cluster
+- [x] CPU / RAM / stockage / backup / DB
+- [x] Énergie / facteur carbone / coût
+- [x] Criticité / SLA / RTO / RPO
+- [x] Provenance et fraîcheur des données
+- [x] Jeu de données synthétique versionné
 
-**DoD** : un dataset synthétique complet permet de calculer au moins deux scénarios d’architecture.
+**DoD atteint** : modèle et dataset synthétiques versionnés, avec inventaire, métriques, facteurs carbone, coûts, diagramme de données et validateur `python tools/validate_iteration_01.py`. Les calculs de scénarios AS-IS/TO-BE commencent en I2.
 
 ### I2 — Carbon Engine — P0
 - [ ] Calcul d’empreinte reproductible
