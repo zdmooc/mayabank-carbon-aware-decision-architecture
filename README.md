@@ -72,6 +72,24 @@ Résultats de laboratoire actuellement verrouillés par les tests :
 
 Ces valeurs servent uniquement à valider la méthode et ne représentent aucune infrastructure réelle.
 
+## Observabilité & qualité des données v1
+
+L’Itération 3 ajoute une chaîne d’ingestion synthétique avec :
+
+- corrélation `asset -> application -> environnement` ;
+- CPU / RAM / JVM heap / power ;
+- contrôle de fraîcheur ;
+- signalement des données manquantes ;
+- quarantaine des actifs inconnus ;
+- statuts de qualité et warnings explicites.
+
+```bash
+python observability/normalize_metrics.py
+python -m unittest tests/test_observability_pipeline.py
+```
+
+Principe : **une métrique stale, incomplète ou non corrélée ne doit jamais alimenter silencieusement une recommandation GreenOps.**
+
 ## Stratégie de déploiement
 
 Le projet doit être exécutable sur deux cibles complémentaires :
@@ -105,9 +123,10 @@ Principe : **concevoir une seule architecture fonctionnelle et décisionnelle, a
 - **Itération 0 — Initialisation et cadrage : TERMINÉE**
 - **Itération 1 — Modèle de données Carbon & Infrastructure : TERMINÉE**
 - **Itération 2 — Carbon Engine AS-IS / TO-BE : TERMINÉE**
-- **Prochaine : Itération 3 — Observabilité & inventaire**
+- **Itération 3 — Observabilité, inventaire et qualité des données : TERMINÉE**
+- **Prochaine : Itération 4 — Right-Sizing**
 
-Voir `docs/iteration-02/README.md`.
+Voir `docs/iteration-03/README.md`.
 
 ## Validation I1
 
