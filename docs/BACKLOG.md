@@ -38,12 +38,14 @@ Construire un POC démontrable de décision de décarbonation d’une infrastruc
 
 **DoD atteint** : moteur sans dépendance externe, scénarios `baseline.csv` et `optimized.csv`, hypothèses versionnées, tests de non-régression et comparaison énergie / kgCO2e / coût. Les résultats sont synthétiques et ne représentent aucun environnement réel.
 
-### I3 — Observabilité & inventaire — P0
-- [ ] Ingestion métriques CPU/RAM/JVM
-- [ ] Inventaire applicatif et infra
-- [ ] Corrélation application -> infrastructure
-- [ ] Gestion données manquantes
-- [ ] Qualité / fraîcheur / source
+### I3 — Observabilité & inventaire — DONE
+- [x] Ingestion métriques CPU/RAM/JVM
+- [x] Inventaire applicatif et infra
+- [x] Corrélation application -> infrastructure
+- [x] Gestion données manquantes
+- [x] Qualité / fraîcheur / source
+
+**DoD atteint** : flux synthétique d’observabilité, corrélation asset/application, fraîcheur, complétude, warnings, quarantaine des actifs inconnus et tests `python -m unittest tests/test_observability_pipeline.py`.
 
 ### I4 — Right-Sizing — P0
 - [ ] Détecter sous-utilisation
