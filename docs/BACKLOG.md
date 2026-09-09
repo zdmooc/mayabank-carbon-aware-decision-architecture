@@ -97,14 +97,16 @@ Construire un POC démontrable de décision de décarbonation d’une infrastruc
 
 **DoD atteint** : politiques `greenops-policy-v1`, Decision Engine vendor-neutral, reason codes, contrôle qualité/confiance/sécurité/budget/RTO-RPO/dépendances, human approval et tests. `autoApplyAllowed=false` pour toutes les décisions.
 
-### I9 — Optimisation multi-critères — P1
-- [ ] Carbone
-- [ ] Coût
-- [ ] Performance
-- [ ] Risque
-- [ ] Disponibilité
-- [ ] Analyse Pareto
-- [ ] Explication du compromis retenu
+### I9 — Optimisation multi-critères — DONE
+- [x] Carbone
+- [x] Coût
+- [x] Performance
+- [x] Risque
+- [x] Disponibilité
+- [x] Analyse Pareto
+- [x] Explication du compromis retenu
+
+**DoD atteint** : moteur `optimization/pareto.py`, profil de préférences versionné, séparation hard gates/préférences, front de Pareto, détection d'options dominées, recommandation pondérée et conservation des alternatives non dominées. `autoApplyAllowed=false` et les poids du lab sont explicitement synthétiques.
 
 ### I10 — API & Event-Driven — P1
 - [ ] Recommendation API
