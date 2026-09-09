@@ -21,42 +21,27 @@ Infrastructure de paiement
 
 ## Cas d’usage fil rouge
 
-Plateforme fictive **MayaBank Payment Platform** :
-
-- modernisation middleware vers OpenShift ;
-- right-sizing CPU/RAM ;
-- rationalisation VM/JVM ;
-- optimisation stockage et sauvegarde ;
-- consolidation bases de données ;
-- arrêt ou réduction des environnements non critiques ;
-- comparaison de scénarios d’architecture selon carbone, coût, performance, sécurité et résilience.
+Plateforme fictive **MayaBank Payment Platform** : modernisation middleware, right-sizing, rationalisation VM/JVM, optimisation stockage/backup, consolidation DB et réduction raisonnée des environnements non critiques.
 
 ## Principe architectural
 
-L’AI cherche, prévoit et optimise. Le Decision Engine vérifie les contraintes de l’entreprise.
-
 ```text
 Metrics / CMDB / Cost / Carbon Factors
-            |
-            v
+            ↓
        Carbon Engine
-            |
-            +----> AI / ML
-            |      prediction / anomaly / optimization
-            |
-            v
+            ↓
+         AI / ML
+ forecast / anomaly / ranking
+            ↓
       Decision Engine
-  policy / SLA / RTO / security / budget
-            |
-            v
+ SLA / RTO / security / budget
+            ↓
 MIGRATE / RIGHTSIZE / KEEP / REVIEW
 ```
 
-Le moteur de décision reste **vendor-neutral** dans ce dépôt. IBM ODM pourra être évalué comme une implémentation possible, sans transformer ce dépôt en second dépôt ODM.
+Le moteur de décision reste **vendor-neutral**. IBM ODM pourra être évalué comme option d’implémentation sans transformer ce dépôt en second dépôt ODM.
 
 ## Carbon Engine v1
-
-L’Itération 2 fournit un moteur reproductible qui compare des scénarios synthétiques `BASELINE` et `OPTIMIZED`.
 
 ```bash
 python carbon-engine/engine.py --scenario optimized
@@ -64,35 +49,18 @@ python carbon-engine/engine.py --scenario optimized --json
 python -m unittest tests/test_carbon_engine.py
 ```
 
-Résultats de laboratoire verrouillés par les scénarios synthétiques :
-
-- énergie : **−39.62 %** ;
-- émissions opérationnelles synthétiques : **−39.25 %** ;
-- coût annuel synthétique : **−19.90 %**.
-
-Ces valeurs servent uniquement à valider la méthode et ne représentent aucune infrastructure réelle.
+Résultats synthétiques du lab : énergie **−39.62 %**, émissions **−39.25 %**, coût annuel **−19.90 %**. Ils ne représentent aucune infrastructure réelle.
 
 ## Observabilité & qualité des données v1
-
-L’Itération 3 ajoute :
-
-- corrélation `asset -> application -> environnement` ;
-- CPU / RAM / JVM heap / power ;
-- contrôle de fraîcheur ;
-- signalement des données manquantes ;
-- quarantaine des actifs inconnus ;
-- statuts de qualité et warnings explicites.
 
 ```bash
 python observability/normalize_metrics.py
 python -m unittest tests/test_observability_pipeline.py
 ```
 
-Principe : **une métrique stale, incomplète ou non corrélée ne doit jamais alimenter silencieusement une recommandation GreenOps.**
+Une métrique stale, incomplète ou non corrélée ne doit jamais alimenter silencieusement une recommandation GreenOps.
 
 ## Right-Sizing v1
-
-L’Itération 4 transforme les charges p95 synthétiques en recommandations CPU/RAM explicables :
 
 ```bash
 python rightsizing/recommend.py
@@ -100,30 +68,9 @@ python rightsizing/recommend.py --json
 python -m unittest tests/test_rightsizing.py
 ```
 
-Le moteur applique :
-
-- headroom selon criticité ;
-- plafonds de réduction ;
-- minimums de capacité ;
-- garde-fou N+1 pour production critique ;
-- blocage si donnée stale ;
-- `KEEP`, `RIGHTSIZE_DOWN`, `RIGHTSIZE_UP` ou `REVIEW_DATA`.
-
-Aucune recommandation n’est auto-appliquée.
+Le moteur applique criticité, headroom, plafonds de réduction, capacité N+1 et blocage sur données insuffisantes.
 
 ## Modernisation middleware -> OpenShift v1
-
-L’Itération 5 ajoute une évaluation AS-IS/TO-BE sur trois workloads synthétiques :
-
-- VM/JVM source ;
-- namespace OpenShift ;
-- replicas ;
-- requests/limits ;
-- PDB ;
-- distribution multi-worker ;
-- stockage cible ;
-- dépendances bloquantes ;
-- comparaison énergie/carbone/coût/risque.
 
 ```bash
 python modernization/assess.py
@@ -131,21 +78,9 @@ python modernization/assess.py --json
 python -m unittest tests/test_modernization.py
 ```
 
-Résultat logique du scénario : **2 candidats `MIGRATE` et 1 candidat `REVIEW`** tant que son état de session local n’est pas externalisé.
-
-Principe : **une meilleure estimation carbone/coût ne suffit pas à autoriser une migration si l’architecture applicative ou la résilience restent à risque.**
+Résultat logique : **2 candidats MIGRATE et 1 candidat REVIEW** tant que l’état de session local n’est pas externalisé.
 
 ## Data & Storage v1
-
-L’Itération 6 ajoute l’optimisation du patrimoine de données :
-
-- inventaire DB/stockage synthétique ;
-- tiers `HOT / WARM / COLD` ;
-- rétention / TTL ;
-- backups ;
-- candidats à consolidation DB ;
-- garde-fous criticité/RTO ;
-- comparaison coût/carbone synthétique.
 
 ```bash
 python storage/assess.py
@@ -153,48 +88,58 @@ python storage/assess.py --json
 python -m unittest tests/test_storage_assessment.py
 ```
 
-Le ledger transactionnel critique reste en **HOT**. Les données historiques/non-prod peuvent être déplacées ou raccourcies lorsque le RTO et la criticité le permettent. Les coefficients coût/carbone sont fictifs et aucune recommandation n’est auto-appliquée.
+Le ledger critique reste HOT ; les données historiques/non-prod peuvent être optimisées lorsque criticité et RTO le permettent.
+
+## AI / ML GreenOps v1
+
+L’Itération 7 ajoute :
+
+- prévision CPU ;
+- prévision puissance/consommation ;
+- détection d’anomalies ;
+- ranking des candidats à optimisation ;
+- `confidenceScore` ;
+- fallback si historique insuffisant.
+
+```bash
+python ai-ml/greenops_model.py
+python ai-ml/greenops_model.py --json
+python -m unittest tests/test_greenops_ml.py
+```
+
+Dans le dataset synthétique, l’UAT sous-utilisée remonte en tête du ranking, un pic PROD est marqué `ANOMALY_REVIEW`, et un historique trop court passe en `FALLBACK_INSUFFICIENT_HISTORY`.
+
+Principe : **l’AI/ML fournit des signaux ; elle n’autorise ni n’exécute seule un changement d’infrastructure.**
 
 ## Stratégie de déploiement
 
-Le projet doit être exécutable sur deux cibles complémentaires :
+1. **OpenShift Local / CRC — cible prioritaire des labs** ;
+2. **Azure AKS — cible Kubernetes cloud de référence** ;
+3. **ARO — option OpenShift managé entreprise**.
 
-1. **OpenShift Local / CRC — cible prioritaire des labs locaux**
-   - déployer Carbon Engine, API, AI/ML, Decision Engine et observabilité ;
-   - expérimenter le right-sizing, les workloads conteneurisés, GitOps et les politiques GreenOps ;
-   - conserver des preuves reproductibles avant de déclarer un lab exécuté.
-
-2. **Azure — cible cloud alternative**
-   - **AKS** comme cible Kubernetes Azure de référence pour les labs cloud ;
-   - **ARO** comme option entreprise lorsqu’une cible OpenShift managée sur Azure est requise ;
-   - intégrer progressivement Azure Monitor / Log Analytics / Cost Management et les sources de données utiles aux scénarios carbone ;
-   - détruire les ressources de lab coûteuses après validation lorsque cela est possible.
-
-Principe : **concevoir une seule architecture fonctionnelle et décisionnelle, avec des déploiements adaptés à Local/CRC et Azure**.
+Principe : une seule logique fonctionnelle/décisionnelle, avec adaptations de plateforme via manifests/overlays/IaC.
 
 ## Règles du dépôt
 
-- aucun nom, donnée, architecture interne ou chiffre attribuable à une entreprise réelle ;
-- tous les scénarios utilisent **MayaBank Payment Platform** ;
-- données de démonstration synthétiques uniquement ;
+- aucun nom, chiffre ou architecture interne attribuable à une entreprise réelle ;
+- données synthétiques uniquement ;
 - distinguer mesure, calcul, hypothèse et prédiction ;
-- ne jamais présenter un gain carbone estimé comme une mesure réelle ;
-- chaque recommandation doit pouvoir expliquer ses critères ;
-- chaque itération doit être récupérable, documentée et testable indépendamment ;
-- éviter tout fork fonctionnel entre OpenShift Local et Azure.
+- ne jamais présenter un gain estimé comme une mesure réelle ;
+- aucune recommandation n’est auto-appliquée.
 
 ## État
 
-- **Itération 0 — Initialisation et cadrage : TERMINÉE**
-- **Itération 1 — Modèle de données Carbon & Infrastructure : TERMINÉE**
-- **Itération 2 — Carbon Engine AS-IS / TO-BE : TERMINÉE**
-- **Itération 3 — Observabilité, inventaire et qualité des données : TERMINÉE**
-- **Itération 4 — Right-Sizing explicable : TERMINÉE**
-- **Itération 5 — Modernisation Middleware -> OpenShift : TERMINÉE**
-- **Itération 6 — Data & Storage : TERMINÉE**
-- **Prochaine : Itération 7 — AI / ML**
+- **I0 : TERMINÉE**
+- **I1 : TERMINÉE**
+- **I2 : TERMINÉE**
+- **I3 : TERMINÉE**
+- **I4 : TERMINÉE**
+- **I5 : TERMINÉE**
+- **I6 : TERMINÉE**
+- **I7 : TERMINÉE**
+- **Prochaine : Itération 8 — Decision Engine**
 
-Voir `docs/iteration-06/README.md`.
+Voir `docs/iteration-07/README.md`.
 
 ## Roadmap
 
