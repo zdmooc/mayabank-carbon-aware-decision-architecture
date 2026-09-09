@@ -1,0 +1,4 @@
+workload_id,name,environment,criticality,platform,instances,total_vcpu,total_ram_gb,modeled_power_w,active_hours_year,monthly_cost_eur,state_model,storage_model,ha_model
+MW-001,payment-orchestrator,PROD,CRITICAL,VM_JVM,2,16,64,320,8760,2400,STATELESS,SHARED,ACTIVE_ACTIVE
+MW-002,reconciliation-batch,TEST,MEDIUM,VM_JVM,1,6,24,110,3000,600,STATELESS,LOCAL,BASIC
+MW-003,legacy-session-service,PROD,HIGH,VM_JVM,2,24,96,450,8760,3200,LOCAL_SESSION,SHARED,ACTIVE_PASSIVE
