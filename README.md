@@ -56,7 +56,7 @@ Le moteur de décision reste **vendor-neutral** dans ce dépôt. IBM ODM pourra 
 
 ## Carbon Engine v1
 
-L’Itération 2 fournit un moteur reproductible, sans dépendance externe, qui compare des scénarios synthétiques `BASELINE` et `OPTIMIZED`.
+L’Itération 2 fournit un moteur reproductible qui compare des scénarios synthétiques `BASELINE` et `OPTIMIZED`.
 
 ```bash
 python carbon-engine/engine.py --scenario optimized
@@ -64,7 +64,7 @@ python carbon-engine/engine.py --scenario optimized --json
 python -m unittest tests/test_carbon_engine.py
 ```
 
-Résultats de laboratoire actuellement verrouillés par les tests :
+Résultats de laboratoire verrouillés par les scénarios synthétiques :
 
 - énergie : **−39.62 %** ;
 - émissions opérationnelles synthétiques : **−39.25 %** ;
@@ -74,7 +74,7 @@ Ces valeurs servent uniquement à valider la méthode et ne représentent aucune
 
 ## Observabilité & qualité des données v1
 
-L’Itération 3 ajoute une chaîne d’ingestion synthétique avec :
+L’Itération 3 ajoute :
 
 - corrélation `asset -> application -> environnement` ;
 - CPU / RAM / JVM heap / power ;
@@ -89,6 +89,27 @@ python -m unittest tests/test_observability_pipeline.py
 ```
 
 Principe : **une métrique stale, incomplète ou non corrélée ne doit jamais alimenter silencieusement une recommandation GreenOps.**
+
+## Right-Sizing v1
+
+L’Itération 4 transforme les charges p95 synthétiques en recommandations CPU/RAM explicables :
+
+```bash
+python rightsizing/recommend.py
+python rightsizing/recommend.py --json
+python -m unittest tests/test_rightsizing.py
+```
+
+Le moteur applique :
+
+- headroom selon criticité ;
+- plafonds de réduction ;
+- minimums de capacité ;
+- garde-fou N+1 pour production critique ;
+- blocage si donnée stale ;
+- `KEEP`, `RIGHTSIZE_DOWN`, `RIGHTSIZE_UP` ou `REVIEW_DATA`.
+
+Aucune recommandation n’est auto-appliquée : `auto_apply_allowed=false` dans le moteur de laboratoire.
 
 ## Stratégie de déploiement
 
@@ -124,15 +145,10 @@ Principe : **concevoir une seule architecture fonctionnelle et décisionnelle, a
 - **Itération 1 — Modèle de données Carbon & Infrastructure : TERMINÉE**
 - **Itération 2 — Carbon Engine AS-IS / TO-BE : TERMINÉE**
 - **Itération 3 — Observabilité, inventaire et qualité des données : TERMINÉE**
-- **Prochaine : Itération 4 — Right-Sizing**
+- **Itération 4 — Right-Sizing explicable : TERMINÉE**
+- **Prochaine : Itération 5 — Modernisation Middleware -> OpenShift**
 
-Voir `docs/iteration-03/README.md`.
-
-## Validation I1
-
-```bash
-python tools/validate_iteration_01.py
-```
+Voir `docs/iteration-04/README.md`.
 
 ## Roadmap
 
