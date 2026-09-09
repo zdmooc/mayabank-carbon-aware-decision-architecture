@@ -2,74 +2,71 @@
 
 ## Objectif global
 
-Construire progressivement une architecture de décision pour réduire l’empreinte carbone d’une infrastructure de paiement tout en respectant coût, performance, sécurité, criticité et résilience, avec une trajectoire de déploiement **OpenShift Local / CRC -> Azure**.
+Construire progressivement une architecture de décision pour réduire l’empreinte carbone d’une infrastructure de paiement tout en respectant coût, performance, sécurité, criticité et résilience, avec une trajectoire **OpenShift Local / CRC -> Azure**.
 
 ## Stratégie de déploiement transverse
 
-- **OpenShift Local / CRC** : cible prioritaire des labs et validations locales.
+- **OpenShift Local / CRC** : cible prioritaire des labs.
 - **Azure AKS** : cible cloud Kubernetes de référence.
-- **Azure Red Hat OpenShift (ARO)** : option entreprise lorsque le besoin impose OpenShift managé sur Azure.
+- **ARO** : option entreprise si OpenShift managé sur Azure est requis.
 - Même logique Carbon/AI/Decision entre local et cloud.
-- Différences de plateforme gérées par manifests, Helm/Kustomize, overlays et IaC.
+- Aucun gain réel ni lab exécuté n’est revendiqué sans preuve.
 
 ## Itérations
 
-### Itération 0 — Cadrage et gouvernance — TERMINÉE
-- périmètre fictif ; anonymisation ; séparation mesures/calculs/hypothèses/prédictions ; NFR ; stratégie CRC -> Azure.
+### I0 — Cadrage et gouvernance — TERMINÉE
+Périmètre fictif, anonymisation, séparation mesures/calculs/hypothèses/prédictions, NFR et stratégie CRC -> Azure.
 
-### Itération 1 — Modèle de données Carbon & Infra — TERMINÉE
-- application/environnement/actifs ; CPU/RAM/stockage/DB ; énergie/facteurs carbone/coût ; criticité/RTO/RPO ; provenance/qualité.
+### I1 — Modèle de données Carbon & Infra — TERMINÉE
+Applications, environnements, compute, CPU/RAM/stockage/backup/DB, énergie, facteurs carbone, coût, criticité, RTO/RPO et provenance.
 
-### Itération 2 — Carbon Engine AS-IS / TO-BE — TERMINÉE
-- calcul reproductible ; hypothèses explicites ; scénarios ; énergie/kgCO2e/coût ; tests.
+### I2 — Carbon Engine AS-IS / TO-BE — TERMINÉE
+Calcul reproductible, hypothèses explicites, scénarios BASELINE/OPTIMIZED, énergie/kgCO2e/coût et tests.
 
-### Itération 3 — Observabilité & CMDB — TERMINÉE
-- ingestion CPU/RAM/JVM ; inventaire ; normalisation ; corrélation application-infrastructure ; qualité/fraîcheur.
+### I3 — Observabilité & CMDB — TERMINÉE
+Ingestion CPU/RAM/JVM, inventaire, normalisation, corrélation, fraîcheur et qualité.
 
-### Itération 4 — Right-Sizing — TERMINÉE
-- cibles CPU/RAM ; capacité N+1 ; plafonds de réduction ; garde-fous ; recommandations explicables.
+### I4 — Right-Sizing — TERMINÉE
+Sous-utilisation, cibles CPU/RAM, N+1, plafonds de réduction, garde-fous et recommandations explicables.
 
-### Itération 5 — Modernisation Middleware -> OpenShift — TERMINÉE
-- AS-IS VM/JVM ; cible OpenShift ; dépendances ; stockage ; HA/PDB ; énergie/carbone/coût/risque ; MIGRATE/REVIEW.
+### I5 — Modernisation Middleware -> OpenShift — TERMINÉE
+AS-IS VM/JVM, cible pods/namespaces, stockage, dépendances, HA/PDB, comparaison carbone/coût/risque et décisions MIGRATE/REVIEW.
 
-### Itération 6 — Data & Storage — TERMINÉE
-- consolidation DB ; HOT/WARM/COLD ; rétention/TTL ; backup ; garde-fous criticité/RTO ; coût/carbone.
+### I6 — Data & Storage — TERMINÉE
+Consolidation DB, HOT/WARM/COLD, rétention/TTL, backup, RTO/criticité et comparaison coût/carbone.
 
-### Itération 7 — AI / ML — TERMINÉE
-- prévision de charge ; détection d’anomalies ; prévision de consommation ; ranking ; confidence score ; fallback sur historique insuffisant ; aucune exécution automatique.
+### I7 — AI / ML — TERMINÉE
+Forecast de charge/consommation, anomalies, ranking, `confidenceScore` et fallback.
 
-### Itération 8 — Decision Engine
-- politiques Green IT ;
-- SLA ;
-- RTO/RPO ;
-- sécurité ;
-- budget ;
-- criticité ;
-- règles versionnées ;
-- MIGRATE / RIGHTSIZE / CONSOLIDATE / KEEP / RETIRE / REVIEW ;
-- human review ;
-- IBM ODM évalué comme option sans dépendance obligatoire.
+### I8 — Decision Engine — TERMINÉE
+Politiques Green IT, qualité/confiance, SLA/RTO-RPO, sécurité, budget, criticité, dépendances et décisions gouvernées `MIGRATE / RIGHTSIZE / CONSOLIDATE / KEEP / RETIRE / REVIEW`.
 
-### Itération 9 — Optimisation multi-critères
-- carbone ; coût ; performance ; risque ; disponibilité ; Pareto ; explication du compromis.
+### I9 — Optimisation multi-critères
+- carbone ;
+- coût ;
+- performance ;
+- risque ;
+- disponibilité ;
+- analyse Pareto ;
+- explication du compromis retenu.
 
-### Itération 10 — API & Event-Driven
-- Recommendation API ; OpenAPI ; événements ; AsyncAPI ; correlation ID ; audit.
+### I10 — API & Event-Driven
+Recommendation API, OpenAPI, événements `RecommendationGenerated / DecisionApproved / ChangeApplied`, AsyncAPI, correlation ID et audit.
 
-### Itération 11 — Déploiement OpenShift Local / CRC
-- Carbon Engine ; API ; AI/ML ; Decision Engine ; Services/Routes ; ConfigMaps/Secrets ; quotas/policies ; observabilité ; GitOps ; E2E.
+### I11 — OpenShift Local / CRC
+Déploiement Carbon Engine, API, AI/ML et Decision Engine ; Services/Routes ; ConfigMaps/Secrets ; requests/limits/quotas/NetworkPolicy ; observabilité ; GitOps ; test E2E.
 
-### Itération 12 — Azure / GreenOps cloud
-- AKS ; ARO alternatif ; Azure Monitor/Log Analytics ; Cost Management ; identité/réseau/secrets ; IaC ; destroy ; parité fonctionnelle.
+### I12 — Azure / GreenOps cloud
+Portage AKS, ARO documenté, IaC, Azure Monitor/Log Analytics, Cost Management, identité/réseau/secrets, parité CRC/Azure et destroy contrôlé.
 
-### Itération 13 — GitOps / ITSM
-- recommandation -> changement contrôlé ; approbation humaine ; Argo CD ; overlays ; rollback ; preuves avant/après.
+### I13 — GitOps / ITSM
+Recommandation -> changement contrôlé, approbation humaine, Argo CD, overlays local/Azure, rollback et preuves avant/après.
 
-### Itération 14 — Observabilité carbone & FinOps
-- dashboards ; SLI/SLO ; budget carbone ; coût ; dérive ; historique des décisions.
+### I14 — Observabilité carbone & FinOps
+Dashboards carbone/coût, SLI/SLO, budget carbone, dérive/anomalies et historique des décisions.
 
-### Itération 15 — Gouvernance / sécurité / audit
-- lineage ; traçabilité ; séparation recommandation/exécution ; IAM/RBAC ; threat model ; contrôles.
+### I15 — Gouvernance / sécurité / audit
+Data lineage, traçabilité décision, séparation recommandation/exécution, IAM/RBAC, threat model et contrôles.
 
-### Itération 16 — Soutenance Architecte Solution
-- HLD ; ADR ; matrice scénarios ; risques ; trajectoire ; comparaison CRC/AKS/ARO ; démonstration.
+### I16 — Soutenance Architecte Solution
+HLD, ADR, matrice AS-IS/scénarios/TO-BE, risques, arbitrages, diagrammes, démonstration et entretien.
