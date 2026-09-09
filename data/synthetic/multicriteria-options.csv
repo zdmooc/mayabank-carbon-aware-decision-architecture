@@ -1,0 +1,7 @@
+candidate_id,option_id,action,eligible,carbon_reduction_pct,cost_reduction_pct,performance_score,availability_score,risk_score,notes
+payment-orchestrator,OPT-KEEP,KEEP,true,0,0,100,100,5,Reference conservative option
+payment-orchestrator,OPT-RIGHTSIZE,RIGHTSIZE,true,20,18,96,100,10,Moderate reduction with strong service levels
+payment-orchestrator,OPT-MIGRATE,MIGRATE,true,32,25,94,99,18,OpenShift modernization with controlled migration risk
+payment-orchestrator,OPT-AGGRESSIVE,RIGHTSIZE,true,30,20,70,90,45,Aggressive downsizing deliberately included as dominated option
+payment-orchestrator,OPT-SERVERLESS,MIGRATE,true,40,35,80,95,40,High efficiency but larger architecture and operational risk
+payment-orchestrator,OPT-INELIGIBLE,MIGRATE,false,50,45,98,99,8,Excluded by hard enterprise policy gate
