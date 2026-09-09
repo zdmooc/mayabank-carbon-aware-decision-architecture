@@ -15,25 +15,17 @@ Infrastructure / CMDB / observabilité
   -> AI / ML
   -> Decision Engine
   -> Optimisation multi-critères / Pareto
-  -> API / Event-Driven
+  -> Recommendation API / Event-Driven
   -> OpenShift / Azure / GitOps / ITSM
 ```
 
 ## Principe architectural
 
-**L’AI/ML prévoit et priorise ; le Decision Engine applique les contraintes dures ; l’optimisation multi-critères compare les options éligibles ; l’humain approuve les changements sensibles.**
+**L’AI/ML prévoit et priorise ; le Decision Engine applique les contraintes dures ; l’optimisation multi-critères compare les options éligibles ; l’humain approuve les changements sensibles ; l’API n’applique aucun changement automatiquement.**
 
 ## Cas d’usage fil rouge
 
-Plateforme fictive **MayaBank Payment Platform** :
-
-- modernisation middleware vers OpenShift ;
-- right-sizing CPU/RAM ;
-- rationalisation VM/JVM ;
-- optimisation stockage et sauvegarde ;
-- consolidation bases de données ;
-- réduction des environnements non critiques ;
-- comparaison de scénarios carbone/coût/performance/risque/disponibilité.
+Plateforme fictive **MayaBank Payment Platform** : modernisation middleware, right-sizing CPU/RAM, rationalisation VM/JVM, optimisation stockage/backup, consolidation DB, réduction non-prod et comparaison carbone/coût/performance/risque/disponibilité.
 
 ## Modules livrés
 
@@ -55,57 +47,60 @@ python storage/assess.py
 
 ### I7 — AI / ML GreenOps
 
-- forecast CPU/power ;
-- consommation ;
-- anomalies ;
-- ranking ;
-- `confidenceScore` ;
-- fallback.
+Forecast CPU/power, consommation, anomalies, ranking, `confidenceScore` et fallback. L’AI/ML ne déclenche aucun changement.
 
 ### I8 — Decision Engine
 
-Le moteur vérifie :
-
-- qualité des données ;
-- confiance ML ;
-- criticité ;
-- SLA / RTO / RPO ;
-- sécurité ;
-- budget ;
-- dépendances bloquantes.
-
-Décisions : `MIGRATE / RIGHTSIZE / CONSOLIDATE / KEEP / RETIRE / REVIEW`.
+Le moteur vérifie qualité, confiance ML, criticité, SLA/RTO/RPO, sécurité, budget et dépendances. Décisions : `MIGRATE / RIGHTSIZE / CONSOLIDATE / KEEP / RETIRE / REVIEW`.
 
 `autoApplyAllowed=false` pour toutes les décisions.
 
 ### I9 — Optimisation multi-critères
 
-L’Itération 9 ajoute :
-
-- carbone ;
-- coût ;
-- performance ;
-- disponibilité ;
-- risque ;
-- contraintes dures séparées des préférences ;
-- front de Pareto ;
-- profil de poids versionné ;
-- recommandation pondérée ;
-- conservation des alternatives non dominées.
+Carbone, coût, performance, disponibilité, risque, hard gates, front de Pareto, poids versionnés et alternatives non dominées.
 
 ```bash
 python optimization/pareto.py
-python optimization/pareto.py --json
 python -m unittest tests/test_multicriteria.py
 ```
 
-Le scénario synthétique recommande `OPT-MIGRATE` selon le profil de lab, tout en conservant `KEEP`, `RIGHTSIZE` et `SERVERLESS` comme alternatives Pareto. L’option agressive est détectée comme dominée et une option non éligible est exclue avant scoring.
+### I10 — Recommendation API & Event-Driven
 
-Principe : **un bon score carbone ne peut jamais contourner une contrainte de sécurité, SLA, RTO/RPO ou policy.**
+L’API réutilise directement le Decision Engine :
+
+- `POST /v1/recommendations/evaluate` ;
+- `POST /v1/recommendations/{recommendationId}/approve` ;
+- OpenAPI 3.1 ;
+- `X-Correlation-Id` ;
+- audit JSONL ;
+- `policyVersion` et `reasonCodes` conservés ;
+- aucune duplication de la politique dans l’API.
+
+Événements AsyncAPI 3.1 :
+
+- `RecommendationGenerated` ;
+- `DecisionApproved` ;
+- `ChangeApplied`.
+
+`ChangeApplied` appartient au processus de changement externe contrôlé. L’appel `/approve` retourne toujours :
+
+```text
+autoApplyAllowed=false
+changeApplied=false
+```
+
+Validation portable :
+
+```bash
+python -m unittest tests/test_recommendation_api.py
+python api/reference_recommendation_api.py
+```
+
+Le fichier `data/synthetic/recommendation-events.jsonl` montre la chaîne complète de façon synthétique et explicitement non réelle.
 
 ## Stratégie de déploiement
 
-1. **OpenShift Local / CRC** — cible prioritaire des labs.
+1. **OpenShift Local / CRC** — prochaine étape I11.
 2. **Azure AKS** — cible Kubernetes Azure de référence.
 3. **ARO** — option entreprise si OpenShift managé sur Azure est requis.
 
@@ -117,12 +112,13 @@ Principe : **un bon score carbone ne peut jamais contourner une contrainte de s�
 - ne jamais présenter un gain estimé comme une mesure réelle ;
 - chaque recommandation doit expliquer ses critères ;
 - aucun hard gate ne peut être compensé par une pondération ;
+- approbation et exécution sont deux étapes distinctes ;
 - aucune recommandation n’est auto-appliquée ;
 - éviter tout fork fonctionnel entre OpenShift Local et Azure.
 
 ## État
 
-- **I0 à I9 : TERMINÉES**
-- **Prochaine : Itération 10 — API & Event-Driven**
+- **I0 à I10 : TERMINÉES**
+- **Prochaine : I11 — OpenShift Local / CRC**
 
-Voir `docs/iteration-09/README.md`, `docs/00-roadmap.md` et `docs/BACKLOG.md`.
+Voir `docs/iteration-10/README.md`, `docs/00-roadmap.md` et `docs/BACKLOG.md`.
