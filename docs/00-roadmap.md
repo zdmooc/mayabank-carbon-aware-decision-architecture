@@ -54,13 +54,14 @@ Construire progressivement une architecture de décision pour réduire l’empre
 - garde-fous de performance et qualité ;
 - recommandations explicables et non auto-appliquées.
 
-### Itération 5 — Modernisation Middleware -> OpenShift
-- scénario VM/WebSphere-like vers conteneurs/OpenShift ;
-- sizing ;
-- dépendances ;
-- stockage ;
-- HA ;
-- comparaison carbone/coût/risque.
+### Itération 5 — Modernisation Middleware -> OpenShift — TERMINÉE
+- modèle AS-IS VM/JVM ;
+- cible OpenShift namespaces/pods/requests/limits ;
+- dépendances et état de session ;
+- stockage cible ;
+- HA / PDB / distribution multi-worker ;
+- comparaison énergie/carbone/coût/risque ;
+- décisions MIGRATE / REVIEW explicables.
 
 ### Itération 6 — Data & Storage
 - consolidation DB ;
