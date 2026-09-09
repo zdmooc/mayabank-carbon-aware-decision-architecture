@@ -26,15 +26,17 @@ Construire un POC démontrable de décision de décarbonation d’une infrastruc
 - [x] Provenance et fraîcheur des données
 - [x] Jeu de données synthétique versionné
 
-**DoD atteint** : modèle et dataset synthétiques versionnés, avec inventaire, métriques, facteurs carbone, coûts, diagramme de données et validateur `python tools/validate_iteration_01.py`. Les calculs de scénarios AS-IS/TO-BE commencent en I2.
+**DoD atteint** : modèle et dataset synthétiques versionnés, avec inventaire, métriques, facteurs carbone, coûts, diagramme de données et validateur `python tools/validate_iteration_01.py`.
 
-### I2 — Carbon Engine — P0
-- [ ] Calcul d’empreinte reproductible
-- [ ] Facteurs carbone explicites
-- [ ] Distinction mesure / calcul / hypothèse
-- [ ] AS-IS / TO-BE
-- [ ] Tests unitaires
-- [ ] Rapport de comparaison
+### I2 — Carbon Engine — DONE
+- [x] Calcul d’empreinte reproductible
+- [x] Facteurs carbone explicites
+- [x] Distinction mesure / calcul / hypothèse
+- [x] AS-IS / TO-BE
+- [x] Tests unitaires
+- [x] Rapport de comparaison
+
+**DoD atteint** : moteur sans dépendance externe, scénarios `baseline.csv` et `optimized.csv`, hypothèses versionnées, tests de non-régression et comparaison énergie / kgCO2e / coût. Les résultats sont synthétiques et ne représentent aucun environnement réel.
 
 ### I3 — Observabilité & inventaire — P0
 - [ ] Ingestion métriques CPU/RAM/JVM
