@@ -1,0 +1,4 @@
+workload_id,namespace,min_replicas,request_cpu_total,limit_cpu_total,request_ram_gb_total,limit_ram_gb_total,modeled_power_w,active_hours_year,monthly_cost_eur,pdb_min_available,distribution,storage_target,migration_risk_score,blocking_dependency
+MW-001,payments-prod,3,6,12,24,48,180,8760,1600,2,MULTI_WORKER,CSI_SHARED,20,NONE
+MW-002,payments-test,1,2,4,8,16,40,2500,300,0,SINGLE_WORKER,EPHEMERAL,15,NONE
+MW-003,payments-prod,3,10,18,40,72,250,8760,2500,2,MULTI_WORKER,CSI_SHARED,75,EXTERNALIZE_SESSION_STATE
