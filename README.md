@@ -135,6 +135,26 @@ Résultat logique du scénario : **2 candidats `MIGRATE` et 1 candidat `REVIEW`*
 
 Principe : **une meilleure estimation carbone/coût ne suffit pas à autoriser une migration si l’architecture applicative ou la résilience restent à risque.**
 
+## Data & Storage v1
+
+L’Itération 6 ajoute l’optimisation du patrimoine de données :
+
+- inventaire DB/stockage synthétique ;
+- tiers `HOT / WARM / COLD` ;
+- rétention / TTL ;
+- backups ;
+- candidats à consolidation DB ;
+- garde-fous criticité/RTO ;
+- comparaison coût/carbone synthétique.
+
+```bash
+python storage/assess.py
+python storage/assess.py --json
+python -m unittest tests/test_storage_assessment.py
+```
+
+Le ledger transactionnel critique reste en **HOT**. Les données historiques/non-prod peuvent être déplacées ou raccourcies lorsque le RTO et la criticité le permettent. Les coefficients coût/carbone sont fictifs et aucune recommandation n’est auto-appliquée.
+
 ## Stratégie de déploiement
 
 Le projet doit être exécutable sur deux cibles complémentaires :
@@ -171,9 +191,10 @@ Principe : **concevoir une seule architecture fonctionnelle et décisionnelle, a
 - **Itération 3 — Observabilité, inventaire et qualité des données : TERMINÉE**
 - **Itération 4 — Right-Sizing explicable : TERMINÉE**
 - **Itération 5 — Modernisation Middleware -> OpenShift : TERMINÉE**
-- **Prochaine : Itération 6 — Data & Storage**
+- **Itération 6 — Data & Storage : TERMINÉE**
+- **Prochaine : Itération 7 — AI / ML**
 
-Voir `docs/iteration-05/README.md`.
+Voir `docs/iteration-06/README.md`.
 
 ## Roadmap
 
