@@ -1,0 +1,6 @@
+application_id,application_name,business_domain,criticality,rto_minutes,rpo_minutes,asset_id,environment,platform_type,hosting_target,vcpu_allocated,ram_gb_allocated,storage_gb,region,shutdown_allowed
+APP-PAY-001,Payment Gateway,PAYMENT,CRITICAL,15,5,ASSET-PAY-001-PROD,PROD,VM,ON_PREM,16,64,500,FR-EAST,false
+APP-PAY-001,Payment Gateway,PAYMENT,CRITICAL,15,5,ASSET-PAY-001-UAT,UAT,VM,ON_PREM,8,32,250,FR-EAST,true
+APP-PAY-002,Settlement Service,PAYMENT,HIGH,60,15,ASSET-PAY-002-PROD,PROD,JVM,ON_PREM,12,48,300,FR-EAST,false
+APP-PAY-003,Reconciliation Service,PAYMENT,HIGH,120,30,ASSET-PAY-003-TEST,TEST,JVM,ON_PREM,6,24,150,FR-WEST,true
+APP-PAY-004,Payment Notification,PAYMENT,MEDIUM,240,60,ASSET-PAY-004-DEV,DEV,POD,OPENSHIFT_LOCAL,4,8,20,LOCAL-LAB,true
