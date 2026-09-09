@@ -41,14 +41,18 @@ Forecast de charge/consommation, anomalies, ranking, `confidenceScore` et fallba
 ### I8 — Decision Engine — TERMINÉE
 Politiques Green IT, qualité/confiance, SLA/RTO-RPO, sécurité, budget, criticité, dépendances et décisions gouvernées `MIGRATE / RIGHTSIZE / CONSOLIDATE / KEEP / RETIRE / REVIEW`.
 
-### I9 — Optimisation multi-critères
+### I9 — Optimisation multi-critères — TERMINÉE
 - carbone ;
 - coût ;
 - performance ;
 - risque ;
 - disponibilité ;
-- analyse Pareto ;
-- explication du compromis retenu.
+- hard gates séparés des préférences ;
+- front de Pareto ;
+- profil de poids versionné ;
+- recommandation explicable ;
+- alternatives non dominées conservées ;
+- aucune exécution automatique.
 
 ### I10 — API & Event-Driven
 Recommendation API, OpenAPI, événements `RecommendationGenerated / DecisionApproved / ChangeApplied`, AsyncAPI, correlation ID et audit.
