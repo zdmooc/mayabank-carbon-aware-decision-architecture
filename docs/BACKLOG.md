@@ -108,13 +108,15 @@ Construire un POC démontrable de décision de décarbonation d’une infrastruc
 
 **DoD atteint** : moteur `optimization/pareto.py`, profil de préférences versionné, séparation hard gates/préférences, front de Pareto, détection d'options dominées, recommandation pondérée et conservation des alternatives non dominées. `autoApplyAllowed=false` et les poids du lab sont explicitement synthétiques.
 
-### I10 — API & Event-Driven — P1
-- [ ] Recommendation API
-- [ ] OpenAPI
-- [ ] Événements RecommendationGenerated / DecisionApproved / ChangeApplied
-- [ ] AsyncAPI
-- [ ] Correlation ID
-- [ ] Audit
+### I10 — API & Event-Driven — DONE
+- [x] Recommendation API
+- [x] OpenAPI
+- [x] Événements RecommendationGenerated / DecisionApproved / ChangeApplied
+- [x] AsyncAPI
+- [x] Correlation ID
+- [x] Audit
+
+**DoD atteint** : `Recommendation API` portable réutilisant directement le Decision Engine, OpenAPI 3.1, AsyncAPI 3.1, événements versionnés, correlation ID, journal JSONL, tests de gouvernance et séparation stricte recommandation/approbation/exécution. `/approve` conserve `autoApplyAllowed=false` et `changeApplied=false`; `ChangeApplied` est réservé au processus de changement contrôlé externe.
 
 ### I11 — OpenShift Local / CRC — P0
 - [ ] Déployer Carbon Engine
