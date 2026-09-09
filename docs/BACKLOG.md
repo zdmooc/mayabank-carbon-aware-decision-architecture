@@ -68,12 +68,14 @@ Construire un POC démontrable de décision de décarbonation d’une infrastruc
 
 **DoD atteint** : modèle AS-IS VM/JVM, cible OpenShift avec namespaces/replicas/requests/limits/PDB, prise en compte du stockage et de l’état de session, assessment synthétique énergie/carbone/coût/risque et décisions explicables. Deux workloads de lab sont `MIGRATE`, un reste `REVIEW` tant que son état de session n’est pas externalisé.
 
-### I6 — Data & Storage — P1
-- [ ] Consolidation DB
-- [ ] Stockage hot/warm/cold
-- [ ] Rétention / TTL
-- [ ] Backup
-- [ ] Comparaison coût / carbone
+### I6 — Data & Storage — DONE
+- [x] Consolidation DB
+- [x] Stockage hot/warm/cold
+- [x] Rétention / TTL
+- [x] Backup
+- [x] Comparaison coût / carbone
+
+**DoD atteint** : inventaire DB/stockage synthétique, politiques HOT/WARM/COLD, rétention/TTL, backups, candidats de consolidation DB, moteur `storage/assess.py`, garde-fous criticité/RTO et tests `python -m unittest tests/test_storage_assessment.py`. Les coefficients coût/carbone sont fictifs et aucune recommandation n’est auto-appliquée.
 
 ### I7 — AI / ML — P0
 - [ ] Prévision de charge
