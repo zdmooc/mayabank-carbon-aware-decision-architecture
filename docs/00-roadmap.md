@@ -11,75 +11,32 @@ Construire progressivement une architecture de décision pour réduire l’empre
 - **Azure Red Hat OpenShift (ARO)** : option entreprise lorsque le besoin impose OpenShift managé sur Azure.
 - Même logique Carbon/AI/Decision entre local et cloud.
 - Différences de plateforme gérées par manifests, Helm/Kustomize, overlays et IaC.
-- Les ressources Azure de lab doivent être arrêtées ou détruites après validation lorsque cela est possible.
 
 ## Itérations
 
 ### Itération 0 — Cadrage et gouvernance — TERMINÉE
-- périmètre fictif MayaBank Payment Platform ;
-- anonymisation ;
-- séparation mesures / calculs / hypothèses / prédictions ;
-- rôle AI / Decision Engine ;
-- NFR ;
-- stratégie CRC -> Azure.
+- périmètre fictif ; anonymisation ; séparation mesures/calculs/hypothèses/prédictions ; NFR ; stratégie CRC -> Azure.
 
 ### Itération 1 — Modèle de données Carbon & Infra — TERMINÉE
-- application, environnement, serveur, VM, JVM, pod, cluster ;
-- CPU, RAM, stockage, backup, DB ;
-- énergie, facteurs carbone et coût ;
-- criticité / RTO / RPO ;
-- provenance et qualité des données ;
-- dataset synthétique et validateur.
+- application/environnement/actifs ; CPU/RAM/stockage/DB ; énergie/facteurs carbone/coût ; criticité/RTO/RPO ; provenance/qualité.
 
 ### Itération 2 — Carbon Engine AS-IS / TO-BE — TERMINÉE
-- moteur de calcul reproductible ;
-- hypothèses explicites ;
-- scénarios BASELINE / OPTIMIZED ;
-- énergie / kgCO2e / coût ;
-- tests de non-régression ;
-- comparaison documentée.
+- calcul reproductible ; hypothèses explicites ; scénarios ; énergie/kgCO2e/coût ; tests.
 
 ### Itération 3 — Observabilité & CMDB — TERMINÉE
-- ingestion métriques CPU/RAM/JVM ;
-- inventaire ;
-- normalisation ;
-- corrélation application-infrastructure ;
-- qualité et fraîcheur des données.
+- ingestion CPU/RAM/JVM ; inventaire ; normalisation ; corrélation application-infrastructure ; qualité/fraîcheur.
 
 ### Itération 4 — Right-Sizing — TERMINÉE
-- sous-utilisation ;
-- cibles CPU/RAM ;
-- capacité N+1 ;
-- plafonds de réduction ;
-- garde-fous de performance et qualité ;
-- recommandations explicables et non auto-appliquées.
+- cibles CPU/RAM ; capacité N+1 ; plafonds de réduction ; garde-fous ; recommandations explicables.
 
 ### Itération 5 — Modernisation Middleware -> OpenShift — TERMINÉE
-- modèle AS-IS VM/JVM ;
-- cible OpenShift namespaces/pods/requests/limits ;
-- dépendances et état de session ;
-- stockage cible ;
-- HA / PDB / distribution multi-worker ;
-- comparaison énergie/carbone/coût/risque ;
-- décisions MIGRATE / REVIEW explicables.
+- AS-IS VM/JVM ; cible OpenShift ; dépendances ; stockage ; HA/PDB ; énergie/carbone/coût/risque ; MIGRATE/REVIEW.
 
 ### Itération 6 — Data & Storage — TERMINÉE
-- inventaire DB/stockage synthétique ;
-- consolidation DB ;
-- tiers HOT/WARM/COLD ;
-- rétention / TTL ;
-- backup ;
-- garde-fous criticité/RTO ;
-- comparaison coût/carbone ;
-- recommandations explicables et non auto-appliquées.
+- consolidation DB ; HOT/WARM/COLD ; rétention/TTL ; backup ; garde-fous criticité/RTO ; coût/carbone.
 
-### Itération 7 — AI / ML
-- prévision de charge ;
-- détection d’anomalies ;
-- prévision de consommation ;
-- classement des candidats à optimisation ;
-- confiance et limites du modèle ;
-- fallback sans modèle.
+### Itération 7 — AI / ML — TERMINÉE
+- prévision de charge ; détection d’anomalies ; prévision de consommation ; ranking ; confidence score ; fallback sur historique insuffisant ; aucune exécution automatique.
 
 ### Itération 8 — Decision Engine
 - politiques Green IT ;
@@ -88,65 +45,31 @@ Construire progressivement une architecture de décision pour réduire l’empre
 - sécurité ;
 - budget ;
 - criticité ;
-- MIGRATE / RIGHTSIZE / CONSOLIDATE / KEEP / RETIRE / REVIEW.
+- règles versionnées ;
+- MIGRATE / RIGHTSIZE / CONSOLIDATE / KEEP / RETIRE / REVIEW ;
+- human review ;
+- IBM ODM évalué comme option sans dépendance obligatoire.
 
 ### Itération 9 — Optimisation multi-critères
-- carbone ;
-- coût ;
-- performance ;
-- risque ;
-- disponibilité ;
-- arbitrage Pareto et recommandations explicables.
+- carbone ; coût ; performance ; risque ; disponibilité ; Pareto ; explication du compromis.
 
 ### Itération 10 — API & Event-Driven
-- exposition des recommandations ;
-- OpenAPI ;
-- événements de décision ;
-- audit et corrélation.
+- Recommendation API ; OpenAPI ; événements ; AsyncAPI ; correlation ID ; audit.
 
 ### Itération 11 — Déploiement OpenShift Local / CRC
-- déploiement Carbon Engine, API, AI/ML et Decision Engine ;
-- Services / Routes ;
-- ConfigMaps / Secrets ;
-- requests/limits, quotas et policies ;
-- observabilité locale ;
-- GitOps ;
-- validation E2E avec données synthétiques et preuves.
+- Carbon Engine ; API ; AI/ML ; Decision Engine ; Services/Routes ; ConfigMaps/Secrets ; quotas/policies ; observabilité ; GitOps ; E2E.
 
 ### Itération 12 — Azure / GreenOps cloud
-- portage vers AKS ;
-- ARO documenté comme alternative OpenShift managée ;
-- Azure Monitor / Log Analytics ;
-- Cost Management et sources de métriques utiles ;
-- IaC et destruction contrôlée des ressources de lab ;
-- comparaison de parité fonctionnelle et de coûts Local/CRC vs Azure.
+- AKS ; ARO alternatif ; Azure Monitor/Log Analytics ; Cost Management ; identité/réseau/secrets ; IaC ; destroy ; parité fonctionnelle.
 
 ### Itération 13 — GitOps / ITSM
-- recommandation -> changement contrôlé ;
-- approbation humaine ;
-- overlays local/Azure ;
-- rollback ;
-- preuves avant/après.
+- recommandation -> changement contrôlé ; approbation humaine ; Argo CD ; overlays ; rollback ; preuves avant/après.
 
 ### Itération 14 — Observabilité carbone & FinOps
-- dashboards ;
-- indicateurs ;
-- SLI/SLO ;
-- budget carbone ;
-- coût ;
-- dérive.
+- dashboards ; SLI/SLO ; budget carbone ; coût ; dérive ; historique des décisions.
 
 ### Itération 15 — Gouvernance / sécurité / audit
-- traçabilité ;
-- qualité des données ;
-- séparation recommandation/exécution ;
-- contrôles et responsabilités.
+- lineage ; traçabilité ; séparation recommandation/exécution ; IAM/RBAC ; threat model ; contrôles.
 
 ### Itération 16 — Soutenance Architecte Solution
-- HLD ;
-- ADR ;
-- matrice de scénarios ;
-- risques ;
-- trajectoire ;
-- comparaison OpenShift Local / AKS / ARO ;
-- démonstration anonymisée.
+- HLD ; ADR ; matrice scénarios ; risques ; trajectoire ; comparaison CRC/AKS/ARO ; démonstration.
