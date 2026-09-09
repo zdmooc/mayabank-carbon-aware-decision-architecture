@@ -47,13 +47,15 @@ Construire un POC démontrable de décision de décarbonation d’une infrastruc
 
 **DoD atteint** : flux synthétique d’observabilité, corrélation asset/application, fraîcheur, complétude, warnings, quarantaine des actifs inconnus et tests `python -m unittest tests/test_observability_pipeline.py`.
 
-### I4 — Right-Sizing — P0
-- [ ] Détecter sous-utilisation
-- [ ] Requests / limits cibles
-- [ ] N+1 et garde-fous
-- [ ] Comparer avant/après
-- [ ] Refuser optimisation si SLA menacé
-- [ ] Produire recommandation explicable
+### I4 — Right-Sizing — DONE
+- [x] Détecter sous-utilisation
+- [x] Requests / limits cibles
+- [x] N+1 et garde-fous
+- [x] Comparer avant/après
+- [x] Refuser optimisation si SLA/qualité menacé
+- [x] Produire recommandation explicable
+
+**DoD atteint** : moteur `rightsizing/recommend.py`, politiques par criticité, charges p95 synthétiques, plafonds de réduction, garde-fou N+1, blocage sur données stale et tests `python -m unittest tests/test_rightsizing.py`. Aucune recommandation n’est auto-appliquée.
 
 ### I5 — Modernisation Middleware -> OpenShift — P0
 - [ ] Modèle VM/WebSphere-like fictif
