@@ -12,7 +12,7 @@ Le dépôt montre comment relier :
 Infrastructure de paiement
   -> inventaire / CMDB / observabilité
   -> CPU / RAM / JVM / stockage / DB / énergie / coût
-  -> calcul carbone
+  -> Carbon Engine
   -> AI / ML pour prévoir et optimiser
   -> Decision Engine pour appliquer les politiques
   -> MIGRATE / RIGHTSIZE / CONSOLIDATE / KEEP / RETIRE / REVIEW
@@ -36,11 +36,13 @@ Plateforme fictive **MayaBank Payment Platform** :
 L’AI cherche, prévoit et optimise. Le Decision Engine vérifie les contraintes de l’entreprise.
 
 ```text
-Metrics / CMDB / Cost / Carbon
+Metrics / CMDB / Cost / Carbon Factors
             |
             v
-         AI / ML
-  prediction / anomaly / optimization
+       Carbon Engine
+            |
+            +----> AI / ML
+            |      prediction / anomaly / optimization
             |
             v
       Decision Engine
@@ -51,6 +53,24 @@ MIGRATE / RIGHTSIZE / KEEP / REVIEW
 ```
 
 Le moteur de décision reste **vendor-neutral** dans ce dépôt. IBM ODM pourra être évalué comme une implémentation possible, sans transformer ce dépôt en second dépôt ODM.
+
+## Carbon Engine v1
+
+L’Itération 2 fournit un moteur reproductible, sans dépendance externe, qui compare des scénarios synthétiques `BASELINE` et `OPTIMIZED`.
+
+```bash
+python carbon-engine/engine.py --scenario optimized
+python carbon-engine/engine.py --scenario optimized --json
+python -m unittest tests/test_carbon_engine.py
+```
+
+Résultats de laboratoire actuellement verrouillés par les tests :
+
+- énergie : **−39.62 %** ;
+- émissions opérationnelles synthétiques : **−39.25 %** ;
+- coût annuel synthétique : **−19.90 %**.
+
+Ces valeurs servent uniquement à valider la méthode et ne représentent aucune infrastructure réelle.
 
 ## Stratégie de déploiement
 
@@ -84,18 +104,17 @@ Principe : **concevoir une seule architecture fonctionnelle et décisionnelle, a
 
 - **Itération 0 — Initialisation et cadrage : TERMINÉE**
 - **Itération 1 — Modèle de données Carbon & Infrastructure : TERMINÉE**
-- **Prochaine : Itération 2 — Carbon Engine**
+- **Itération 2 — Carbon Engine AS-IS / TO-BE : TERMINÉE**
+- **Prochaine : Itération 3 — Observabilité & inventaire**
 
-Voir `docs/iteration-01/README.md`.
+Voir `docs/iteration-02/README.md`.
 
-## Validation locale
+## Validation I1
 
 ```bash
 python tools/validate_iteration_01.py
 ```
 
-Cette validation vérifie la cohérence de l’inventaire, des métriques, des facteurs carbone et des coûts synthétiques avant les calculs du futur Carbon Engine.
-
 ## Roadmap
 
-Voir `docs/00-roadmap.md`.
+Voir `docs/00-roadmap.md` et `docs/BACKLOG.md`.
