@@ -1,0 +1,6 @@
+dataset_id,application_id,environment,criticality,data_class,current_tier,volume_gb,monthly_growth_gb,retention_days,backup_copies,backup_retention_days,db_instance_count,db_cpu_utilization_pct,db_ram_utilization_pct,restore_rto_minutes
+DS-PAY-LEDGER,APP-PAY-001,PROD,CRITICAL,TRANSACTIONAL,HOT,1800,120,3650,2,35,2,62,70,15
+DS-RECON-HIST,APP-PAY-003,PROD,HIGH,ANALYTICAL,HOT,4200,80,730,2,30,2,18,24,120
+DS-RECON-TEST,APP-PAY-003,TEST,MEDIUM,TEST,HOT,1200,20,365,2,30,2,8,18,480
+DS-AUDIT-ARCHIVE,APP-PAY-002,PROD,HIGH,AUDIT,WARM,6500,150,2555,2,90,1,5,12,240
+DS-NOTIFY-LOG,APP-PAY-004,DEV,LOW,LOG,HOT,800,50,180,1,7,1,4,10,720
