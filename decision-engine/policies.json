@@ -1,0 +1,47 @@
+{
+  "policyVersion": "greenops-policy-v1",
+  "minimumDataQuality": "GOOD",
+  "minimumMlConfidence": 0.70,
+  "allowedDecisions": ["MIGRATE", "RIGHTSIZE", "CONSOLIDATE", "KEEP", "RETIRE", "REVIEW"],
+  "criticalityRules": {
+    "CRITICAL": {
+      "requireSecurityClear": true,
+      "requireBudgetApproved": true,
+      "requireRtoRpoCompatible": true,
+      "requireNoBlockingDependency": true,
+      "humanApprovalRequired": true
+    },
+    "HIGH": {
+      "requireSecurityClear": true,
+      "requireBudgetApproved": true,
+      "requireRtoRpoCompatible": true,
+      "requireNoBlockingDependency": true,
+      "humanApprovalRequired": true
+    },
+    "MEDIUM": {
+      "requireSecurityClear": true,
+      "requireBudgetApproved": true,
+      "requireRtoRpoCompatible": true,
+      "requireNoBlockingDependency": true,
+      "humanApprovalRequired": true
+    },
+    "LOW": {
+      "requireSecurityClear": true,
+      "requireBudgetApproved": false,
+      "requireRtoRpoCompatible": false,
+      "requireNoBlockingDependency": true,
+      "humanApprovalRequired": true
+    }
+  },
+  "sourceRecommendationMap": {
+    "MIGRATE": "MIGRATE",
+    "RIGHTSIZE_DOWN": "RIGHTSIZE",
+    "RIGHTSIZE_UP": "RIGHTSIZE",
+    "CONSOLIDATE": "CONSOLIDATE",
+    "KEEP": "KEEP",
+    "RETIRE": "RETIRE",
+    "REVIEW": "REVIEW",
+    "REVIEW_DATA": "REVIEW"
+  },
+  "autoApplyAllowed": false
+}
