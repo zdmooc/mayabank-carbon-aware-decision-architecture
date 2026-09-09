@@ -1,0 +1,6 @@
+asset_id,active_hours_per_year,power_multiplier,cost_multiplier,region_override,change_type,assumption
+ASSET-PAY-001-PROD,8760,0.80,0.90,,RIGHTSIZE,Synthetic production right-sizing
+ASSET-PAY-001-UAT,2500,0.75,0.55,,SCHEDULE_RIGHTSIZE,Synthetic UAT shutdown schedule and right-sizing
+ASSET-PAY-002-PROD,8760,0.85,0.92,,RIGHTSIZE,Synthetic JVM modernization/right-sizing
+ASSET-PAY-003-TEST,2000,0.70,0.50,,SCHEDULE_RIGHTSIZE,Synthetic test environment schedule
+ASSET-PAY-004-DEV,1800,0.80,0.55,,SCHEDULE_RIGHTSIZE,Synthetic dev environment schedule
