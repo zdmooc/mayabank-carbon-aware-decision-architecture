@@ -1,0 +1,73 @@
+asyncapi: 3.1.0
+info:
+  title: MayaBank GreenOps Recommendation Events
+  version: 1.0.0
+  description: Événements fictifs de recommandation, approbation et changement GreenOps.
+channels:
+  recommendationGenerated:
+    address: mayabank.greenops.recommendation.generated.v1
+    messages:
+      recommendationGenerated:
+        $ref: '#/components/messages/RecommendationGenerated'
+  decisionApproved:
+    address: mayabank.greenops.decision.approved.v1
+    messages:
+      decisionApproved:
+        $ref: '#/components/messages/DecisionApproved'
+  changeApplied:
+    address: mayabank.greenops.change.applied.v1
+    messages:
+      changeApplied:
+        $ref: '#/components/messages/ChangeApplied'
+operations:
+  publishRecommendationGenerated:
+    action: send
+    channel:
+      $ref: '#/channels/recommendationGenerated'
+  publishDecisionApproved:
+    action: send
+    channel:
+      $ref: '#/channels/decisionApproved'
+  publishChangeApplied:
+    action: send
+    channel:
+      $ref: '#/channels/changeApplied'
+components:
+  schemas:
+    EventEnvelope:
+      type: object
+      required: [eventId, eventType, schemaVersion, occurredAt, correlationId, payload]
+      properties:
+        eventId: {type: string}
+        eventType: {type: string}
+        schemaVersion: {type: string, const: '1.0'}
+        occurredAt: {type: string, format: date-time}
+        correlationId: {type: string}
+        causationId: {type: [string, 'null']}
+        payload: {type: object}
+  messages:
+    RecommendationGenerated:
+      name: RecommendationGenerated
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/EventEnvelope'
+          - type: object
+            properties:
+              eventType: {const: RecommendationGenerated}
+    DecisionApproved:
+      name: DecisionApproved
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/EventEnvelope'
+          - type: object
+            properties:
+              eventType: {const: DecisionApproved}
+    ChangeApplied:
+      name: ChangeApplied
+      description: Émis uniquement par le processus de changement contrôlé après exécution réelle. La Recommendation API ne l'émet pas automatiquement.
+      payload:
+        allOf:
+          - $ref: '#/components/schemas/EventEnvelope'
+          - type: object
+            properties:
+              eventType: {const: ChangeApplied}
