@@ -109,7 +109,31 @@ Le moteur applique :
 - blocage si donnée stale ;
 - `KEEP`, `RIGHTSIZE_DOWN`, `RIGHTSIZE_UP` ou `REVIEW_DATA`.
 
-Aucune recommandation n’est auto-appliquée : `auto_apply_allowed=false` dans le moteur de laboratoire.
+Aucune recommandation n’est auto-appliquée.
+
+## Modernisation middleware -> OpenShift v1
+
+L’Itération 5 ajoute une évaluation AS-IS/TO-BE sur trois workloads synthétiques :
+
+- VM/JVM source ;
+- namespace OpenShift ;
+- replicas ;
+- requests/limits ;
+- PDB ;
+- distribution multi-worker ;
+- stockage cible ;
+- dépendances bloquantes ;
+- comparaison énergie/carbone/coût/risque.
+
+```bash
+python modernization/assess.py
+python modernization/assess.py --json
+python -m unittest tests/test_modernization.py
+```
+
+Résultat logique du scénario : **2 candidats `MIGRATE` et 1 candidat `REVIEW`** tant que son état de session local n’est pas externalisé.
+
+Principe : **une meilleure estimation carbone/coût ne suffit pas à autoriser une migration si l’architecture applicative ou la résilience restent à risque.**
 
 ## Stratégie de déploiement
 
@@ -146,9 +170,10 @@ Principe : **concevoir une seule architecture fonctionnelle et décisionnelle, a
 - **Itération 2 — Carbon Engine AS-IS / TO-BE : TERMINÉE**
 - **Itération 3 — Observabilité, inventaire et qualité des données : TERMINÉE**
 - **Itération 4 — Right-Sizing explicable : TERMINÉE**
-- **Prochaine : Itération 5 — Modernisation Middleware -> OpenShift**
+- **Itération 5 — Modernisation Middleware -> OpenShift : TERMINÉE**
+- **Prochaine : Itération 6 — Data & Storage**
 
-Voir `docs/iteration-04/README.md`.
+Voir `docs/iteration-05/README.md`.
 
 ## Roadmap
 
