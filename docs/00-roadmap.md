@@ -15,31 +15,29 @@ Construire progressivement une architecture de décision pour réduire l’empre
 
 ## Itérations
 
-### Itération 0 — Cadrage et gouvernance
-Statut : **TERMINÉE**
+### Itération 0 — Cadrage et gouvernance — TERMINÉE
+- périmètre fictif MayaBank Payment Platform ;
+- anonymisation ;
+- séparation mesures / calculs / hypothèses / prédictions ;
+- rôle AI / Decision Engine ;
+- NFR ;
+- stratégie CRC -> Azure.
 
-- définir le périmètre fictif MayaBank Payment Platform ;
-- fixer les règles d’anonymisation ;
-- distinguer mesures, calculs, hypothèses et prédictions ;
-- définir le rôle de l’AI et du Decision Engine ;
-- définir les NFR et critères de décision ;
-- définir OpenShift Local / CRC comme cible prioritaire ;
-- définir Azure AKS comme cible cloud et ARO comme option ;
-- créer la roadmap.
-
-### Itération 1 — Modèle de données Carbon & Infra
+### Itération 1 — Modèle de données Carbon & Infra — TERMINÉE
 - application, environnement, serveur, VM, JVM, pod, cluster ;
 - CPU, RAM, stockage, backup, DB ;
-- consommation énergétique et facteurs carbone ;
-- coût et criticité ;
-- provenance et qualité des données.
+- énergie, facteurs carbone et coût ;
+- criticité / RTO / RPO ;
+- provenance et qualité des données ;
+- dataset synthétique et validateur.
 
-### Itération 2 — Carbon Engine
-- calculs reproductibles ;
+### Itération 2 — Carbon Engine AS-IS / TO-BE — TERMINÉE
+- moteur de calcul reproductible ;
 - hypothèses explicites ;
-- scénarios AS-IS / TO-BE ;
-- tests de cohérence ;
-- comparaison d’architectures.
+- scénarios BASELINE / OPTIMIZED ;
+- énergie / kgCO2e / coût ;
+- tests de non-régression ;
+- comparaison documentée.
 
 ### Itération 3 — Observabilité & CMDB
 - ingestion métriques CPU/RAM/JVM ;
