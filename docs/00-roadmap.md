@@ -63,19 +63,23 @@ Construire progressivement une architecture de décision pour réduire l’empre
 - comparaison énergie/carbone/coût/risque ;
 - décisions MIGRATE / REVIEW explicables.
 
-### Itération 6 — Data & Storage
+### Itération 6 — Data & Storage — TERMINÉE
+- inventaire DB/stockage synthétique ;
 - consolidation DB ;
-- stockage chaud/froid ;
-- rétention ;
+- tiers HOT/WARM/COLD ;
+- rétention / TTL ;
 - backup ;
-- coût et carbone.
+- garde-fous criticité/RTO ;
+- comparaison coût/carbone ;
+- recommandations explicables et non auto-appliquées.
 
 ### Itération 7 — AI / ML
 - prévision de charge ;
 - détection d’anomalies ;
 - prévision de consommation ;
 - classement des candidats à optimisation ;
-- confiance et limites du modèle.
+- confiance et limites du modèle ;
+- fallback sans modèle.
 
 ### Itération 8 — Decision Engine
 - politiques Green IT ;
