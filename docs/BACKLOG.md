@@ -57,14 +57,16 @@ Construire un POC démontrable de décision de décarbonation d’une infrastruc
 
 **DoD atteint** : moteur `rightsizing/recommend.py`, politiques par criticité, charges p95 synthétiques, plafonds de réduction, garde-fou N+1, blocage sur données stale et tests `python -m unittest tests/test_rightsizing.py`. Aucune recommandation n’est auto-appliquée.
 
-### I5 — Modernisation Middleware -> OpenShift — P0
-- [ ] Modèle VM/WebSphere-like fictif
-- [ ] Modèle cible conteneurs/OpenShift
-- [ ] CPU/RAM/JVM -> pods/namespaces
-- [ ] Stockage et dépendances
-- [ ] HA
-- [ ] Comparaison carbone / coût / risque
-- [ ] Décision MIGRATE / KEEP / REVIEW
+### I5 — Modernisation Middleware -> OpenShift — DONE
+- [x] Modèle VM/WebSphere-like fictif
+- [x] Modèle cible conteneurs/OpenShift
+- [x] CPU/RAM/JVM -> pods/namespaces
+- [x] Stockage et dépendances
+- [x] HA
+- [x] Comparaison carbone / coût / risque
+- [x] Décision MIGRATE / KEEP / REVIEW
+
+**DoD atteint** : modèle AS-IS VM/JVM, cible OpenShift avec namespaces/replicas/requests/limits/PDB, prise en compte du stockage et de l’état de session, assessment synthétique énergie/carbone/coût/risque et décisions explicables. Deux workloads de lab sont `MIGRATE`, un reste `REVIEW` tant que son état de session n’est pas externalisé.
 
 ### I6 — Data & Storage — P1
 - [ ] Consolidation DB
