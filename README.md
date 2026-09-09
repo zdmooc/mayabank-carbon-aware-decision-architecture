@@ -82,9 +82,19 @@ Principe : **concevoir une seule architecture fonctionnelle et décisionnelle, a
 
 ## État
 
-**Itération 0 — Initialisation et cadrage : TERMINÉE**
+- **Itération 0 — Initialisation et cadrage : TERMINÉE**
+- **Itération 1 — Modèle de données Carbon & Infrastructure : TERMINÉE**
+- **Prochaine : Itération 2 — Carbon Engine**
 
-Voir `docs/iteration-00/README.md`.
+Voir `docs/iteration-01/README.md`.
+
+## Validation locale
+
+```bash
+python tools/validate_iteration_01.py
+```
+
+Cette validation vérifie la cohérence de l’inventaire, des métriques, des facteurs carbone et des coûts synthétiques avant les calculs du futur Carbon Engine.
 
 ## Roadmap
 
