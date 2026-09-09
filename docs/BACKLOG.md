@@ -85,15 +85,17 @@ Construire un POC démontrable de décision de décarbonation d’une infrastruc
 - [x] Confidence score
 - [x] Fallback sans modèle
 
-**DoD atteint** : historique synthétique, moteur `ai-ml/greenops_model.py`, prévisions CPU/puissance, estimation de consommation, détection d’anomalie, ranking, confiance, fallback si historique insuffisant et tests `python -m unittest tests/test_greenops_ml.py`. L’AI/ML ne déclenche aucun changement automatique.
+**DoD atteint** : moteur AI/ML transparent sans dépendance externe, forecast CPU/power, anomalies, ranking, `confidenceScore`, fallback si historique insuffisant et tests. L’AI fournit uniquement des signaux et ne déclenche aucun changement.
 
-### I8 — Decision Engine — P0
-- [ ] Politiques Green IT
-- [ ] Critères SLA / RTO/RPO / sécurité / budget / criticité
-- [ ] Décisions MIGRATE / RIGHTSIZE / CONSOLIDATE / KEEP / RETIRE / REVIEW
-- [ ] Règles versionnées
-- [ ] Human review sur cas sensibles
-- [ ] IBM ODM évalué comme option, sans dépendance obligatoire
+### I8 — Decision Engine — DONE
+- [x] Politiques Green IT
+- [x] Critères SLA / RTO/RPO / sécurité / budget / criticité
+- [x] Décisions MIGRATE / RIGHTSIZE / CONSOLIDATE / KEEP / RETIRE / REVIEW
+- [x] Règles versionnées
+- [x] Human review sur cas sensibles
+- [x] IBM ODM évalué comme option, sans dépendance obligatoire
+
+**DoD atteint** : politiques `greenops-policy-v1`, Decision Engine vendor-neutral, reason codes, contrôle qualité/confiance/sécurité/budget/RTO-RPO/dépendances, human approval et tests. `autoApplyAllowed=false` pour toutes les décisions.
 
 ### I9 — Optimisation multi-critères — P1
 - [ ] Carbone
