@@ -21,7 +21,15 @@ Infrastructure de paiement
 
 ## Cas d’usage fil rouge
 
-Plateforme fictive **MayaBank Payment Platform** : modernisation middleware, right-sizing, rationalisation VM/JVM, optimisation stockage/backup, consolidation DB et réduction raisonnée des environnements non critiques.
+Plateforme fictive **MayaBank Payment Platform** :
+
+- modernisation middleware vers OpenShift ;
+- right-sizing CPU/RAM ;
+- rationalisation VM/JVM ;
+- optimisation stockage et sauvegarde ;
+- consolidation bases de données ;
+- arrêt ou réduction des environnements non critiques ;
+- comparaison de scénarios selon carbone, coût, performance, sécurité et résilience.
 
 ## Principe architectural
 
@@ -34,113 +42,107 @@ Metrics / CMDB / Cost / Carbon Factors
  forecast / anomaly / ranking
             ↓
       Decision Engine
- SLA / RTO / security / budget
+ policy / SLA / RTO-RPO / security
+ budget / criticality / data quality
             ↓
-MIGRATE / RIGHTSIZE / KEEP / REVIEW
+MIGRATE / RIGHTSIZE / CONSOLIDATE
+KEEP / RETIRE / REVIEW
+            ↓
+ Human approval / ITSM / GitOps
 ```
 
-Le moteur de décision reste **vendor-neutral**. IBM ODM pourra être évalué comme option d’implémentation sans transformer ce dépôt en second dépôt ODM.
+**L’AI/ML propose ou priorise ; le Decision Engine applique les politiques ; l’humain approuve les changements sensibles.**
 
 ## Carbon Engine v1
 
 ```bash
 python carbon-engine/engine.py --scenario optimized
-python carbon-engine/engine.py --scenario optimized --json
 python -m unittest tests/test_carbon_engine.py
 ```
 
-Résultats synthétiques du lab : énergie **−39.62 %**, émissions **−39.25 %**, coût annuel **−19.90 %**. Ils ne représentent aucune infrastructure réelle.
+Les résultats sont entièrement synthétiques et servent uniquement à tester la méthode.
 
-## Observabilité & qualité des données v1
+## Observabilité, Right-Sizing, Modernisation et Storage
 
 ```bash
 python observability/normalize_metrics.py
 python -m unittest tests/test_observability_pipeline.py
-```
-
-Une métrique stale, incomplète ou non corrélée ne doit jamais alimenter silencieusement une recommandation GreenOps.
-
-## Right-Sizing v1
-
-```bash
 python rightsizing/recommend.py
-python rightsizing/recommend.py --json
 python -m unittest tests/test_rightsizing.py
-```
-
-Le moteur applique criticité, headroom, plafonds de réduction, capacité N+1 et blocage sur données insuffisantes.
-
-## Modernisation middleware -> OpenShift v1
-
-```bash
 python modernization/assess.py
-python modernization/assess.py --json
 python -m unittest tests/test_modernization.py
-```
-
-Résultat logique : **2 candidats MIGRATE et 1 candidat REVIEW** tant que l’état de session local n’est pas externalisé.
-
-## Data & Storage v1
-
-```bash
 python storage/assess.py
-python storage/assess.py --json
 python -m unittest tests/test_storage_assessment.py
 ```
-
-Le ledger critique reste HOT ; les données historiques/non-prod peuvent être optimisées lorsque criticité et RTO le permettent.
 
 ## AI / ML GreenOps v1
 
 L’Itération 7 ajoute :
 
-- prévision CPU ;
-- prévision puissance/consommation ;
+- forecast CPU/power ;
+- estimation de consommation ;
 - détection d’anomalies ;
-- ranking des candidats à optimisation ;
+- ranking des candidats ;
 - `confidenceScore` ;
 - fallback si historique insuffisant.
 
 ```bash
 python ai-ml/greenops_model.py
-python ai-ml/greenops_model.py --json
 python -m unittest tests/test_greenops_ml.py
 ```
 
-Dans le dataset synthétique, l’UAT sous-utilisée remonte en tête du ranking, un pic PROD est marqué `ANOMALY_REVIEW`, et un historique trop court passe en `FALLBACK_INSUFFICIENT_HISTORY`.
+L’AI/ML ne déclenche aucun changement.
 
-Principe : **l’AI/ML fournit des signaux ; elle n’autorise ni n’exécute seule un changement d’infrastructure.**
+## Decision Engine v1
+
+L’Itération 8 ajoute un moteur de décision vendor-neutral qui vérifie :
+
+- qualité des données ;
+- confiance ML ;
+- criticité ;
+- SLA / RTO / RPO ;
+- sécurité ;
+- budget ;
+- dépendances bloquantes.
+
+Décisions :
+
+- `MIGRATE` ;
+- `RIGHTSIZE` ;
+- `CONSOLIDATE` ;
+- `KEEP` ;
+- `RETIRE` ;
+- `REVIEW`.
+
+```bash
+python decision-engine/engine.py
+python decision-engine/engine.py --json
+python -m unittest tests/test_decision_engine.py
+```
+
+Toutes les décisions exposent une version de politique et des reason codes. `autoApplyAllowed=false` : aucune décision n’est exécutée automatiquement.
+
+IBM ODM est documenté comme **option d’implémentation possible**, sans dépendance obligatoire dans ce dépôt.
 
 ## Stratégie de déploiement
 
-1. **OpenShift Local / CRC — cible prioritaire des labs** ;
-2. **Azure AKS — cible Kubernetes cloud de référence** ;
-3. **ARO — option OpenShift managé entreprise**.
-
-Principe : une seule logique fonctionnelle/décisionnelle, avec adaptations de plateforme via manifests/overlays/IaC.
+1. **OpenShift Local / CRC** — cible prioritaire des labs.
+2. **Azure AKS** — cible Kubernetes Azure de référence.
+3. **ARO** — option entreprise si OpenShift managé sur Azure est requis.
 
 ## Règles du dépôt
 
-- aucun nom, chiffre ou architecture interne attribuable à une entreprise réelle ;
+- aucun nom, chiffre ou architecture attribuable à une entreprise réelle ;
 - données synthétiques uniquement ;
 - distinguer mesure, calcul, hypothèse et prédiction ;
 - ne jamais présenter un gain estimé comme une mesure réelle ;
-- aucune recommandation n’est auto-appliquée.
+- chaque recommandation doit expliquer ses critères ;
+- aucune recommandation n’est auto-appliquée ;
+- éviter tout fork fonctionnel entre OpenShift Local et Azure.
 
 ## État
 
-- **I0 : TERMINÉE**
-- **I1 : TERMINÉE**
-- **I2 : TERMINÉE**
-- **I3 : TERMINÉE**
-- **I4 : TERMINÉE**
-- **I5 : TERMINÉE**
-- **I6 : TERMINÉE**
-- **I7 : TERMINÉE**
-- **Prochaine : Itération 8 — Decision Engine**
+- **I0 à I8 : TERMINÉES**
+- **Prochaine : Itération 9 — Optimisation multi-critères**
 
-Voir `docs/iteration-07/README.md`.
-
-## Roadmap
-
-Voir `docs/00-roadmap.md` et `docs/BACKLOG.md`.
+Voir `docs/iteration-08/README.md`, `docs/00-roadmap.md` et `docs/BACKLOG.md`.
